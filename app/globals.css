@@ -1,0 +1,48 @@
+/* filepath: c:\Users\rlmot\Documents\Semester 3\WebDev2CPRG306-C\Group13Cookies\cprg306assignment\app\globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #ff69b4; /* Pink */
+  --secondary-color: #1e90ff; /* Blue */
+  --background-color: #ffffff; /* White background */
+  --text-color: #171717; /* Dark text */
+}
+
+body {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  padding: 20px;
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--secondary-color);
+}
