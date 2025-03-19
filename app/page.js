@@ -1,57 +1,49 @@
 "use client";
-import './globals.css';  // Import global styles
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    backgroundColor: '#ffccff', // Light pink background
-    color: '#000080', // Dark blue text
-    fontFamily: 'Arial, sans-serif',
-  },
-  heading: {
-    fontSize: '3rem',
-    marginBottom: '2rem',
-    color: '#000080', // Dark blue text
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', // Adds depth
-  },
-  linkList: {
-    listStyle: 'none',
-    padding: 0,
-  },
-  linkItem: {
-    margin: '1rem 0',
-  },
-  link: {
-    textDecoration: 'none',
-    fontSize: '1.5rem',
-    color: '#000080', // Dark blue text
-    backgroundColor: '#ffb3ff', // Light pink background for links
-    padding: '0.5rem 1rem',
-    border: '2px solid #000080', // Dark blue border
-    borderRadius: '5px',
-    transition: 'all 0.3s ease',
-  },
-};
+import './globals.css';
+import { useState } from 'react';
 
 export default function Home() {
+  const [hoveredLink, setHoveredLink] = useState(null);
+  
+  const links = [
+    { name: "Schedule", href: "/schedule", icon: "📅" },
+    { name: "Calendar", href: "/calendar", icon: "🗓️" },
+    { name: "Employees", href: "/employees", icon: "👥" },
+    { name: "Events", href: "/events", icon: "🎉" },
+    { name: "Time-Off", href: "/requests", icon: "🌴" }
+  ];
+
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>Rollin in Dough</h1>
-      <ul style={styles.linkList}>
-        <li style={styles.linkItem}>
-          <a href="/about" style={styles.link}>View Menu</a>
-        </li>
-        <li style={styles.linkItem}>
-          <a href="/api" style={styles.link}>View Cart</a>
-        </li>
-        <li style={styles.linkItem}>
-          <a href="/cart" style={styles.link}>Checkout</a>
-        </li>
-      </ul>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <main className="max-w-4xl w-full text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary-dark">
+         YYC Food Trucks
+        </h1>
+        <p className="text-xl mb-8 text-primary-light">
+         Employee scheduling and management system
+        </p>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {links.map((link, index) => (
+            <a
+              key={index}
+              href={link.href}
+              className="bg-secondary-dark text-primary-dark p-4 rounded-lg border-2 border-primary-medium
+                        transition-all duration-300 hover:bg-primary-medium hover:text-white 
+                        hover:shadow-lg flex flex-col items-center"
+              onMouseEnter={() => setHoveredLink(index)}
+              onMouseLeave={() => setHoveredLink(null)}
+            >
+              <span className="text-3xl mb-2">{link.icon}</span>
+              <span className="text-xl font-semibold">{link.name}</span>
+            </a>
+          ))}
+        </div>
+      </main>
+      
+      <footer className="mt-auto pt-8 text-center text-primary-light text-sm">
+        <p>© 2025 YYC FoodTrucks All rights reserved.</p>
+      </footer>
     </div>
   );
 }
