@@ -1,10 +1,3 @@
-I have updated week 5 with tailwind styling as per week 2 feedback but didnt update week 4 and 3 
-
-
-
-#vercel link
-https://cprg306-assignments-plum-psi.vercel.app/
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
