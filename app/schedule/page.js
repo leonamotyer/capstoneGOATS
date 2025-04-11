@@ -1,8 +1,34 @@
 'use client'
-import { useAuth } from '../../Auth/auth-context'
-import { FiClock, FiMapPin } from 'react-icons/fi'
+
+import { FiClock, FiMapPin } from 'react-icons/fi';
+import EventCard from '../events/eventInfo/eventCard';
 
 export default function Schedule() {
+  const events = [
+    {
+      id: 1,
+      name: 'Food Festival',
+      date: 'November 15, 2024',
+      location: 'Downtown Core',
+      time: '10:00 AM - 6:00 PM',
+      trucks: [
+        { id: 1, name: 'Neon', type: 'Food Truck', capacity: 500, location: 'Downtown Core', status: 'Available' },
+        { id: 2, name: 'Lemonade', type: 'Beverage Truck', capacity: 300, location: 'City Park', status: 'In Use' },
+      ],
+    },
+    {
+      id: 2,
+      name: 'Music Concert',
+      date: 'November 16, 2024',
+      location: 'City Park',
+      time: '5:00 PM - 11:00 PM',
+      trucks: [
+        { id: 3, name: 'Cookie Dough', type: 'Dessert Truck', capacity: 400, location: 'Mall Area', status: 'Available' },
+        { id: 4, name: 'Grill Master', type: 'BBQ Truck', capacity: 600, location: 'City Park', status: 'In Use' },
+      ],
+    },
+  ];
+
   return (
     <div className="data-card">
       <div className="form-header">
@@ -11,28 +37,29 @@ export default function Schedule() {
       </div>
 
       <div className="grid grid-cols-7 gap-4 mt-6">
-        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
+        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
           <div key={day} className="day-column border rounded-lg p-3">
             <h3 className="font-bold mb-2">{day}</h3>
             <div className="space-y-2">
-              <div className="shift-card">
-                <div className="flex items-center gap-2 text-sm">
-                  <FiClock className="text-primary-medium" />
-                  <span>10:00 AM - 6:00 PM</span>
+              {events[index] && (
+                <div className="shift-card">
+                  <div className="flex items-center gap-2 text-sm">
+                    <FiClock className="text-primary-medium" />
+                    <span>{events[index].time}</span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1">
+                    <FiMapPin className="text-primary-medium" />
+                    <span>{events[index].location}</span>
+                  </div>
+                  <div className="mt-2">
+                    <EventCard event={events[index]} />
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 mt-1">
-                  <FiMapPin className="text-primary-medium" />
-                  <span>Downtown Core</span>
-                </div>
-                <div className="mt-2 flex gap-2">
-                  <span className="badge bg-secondary-dark">Driver: John D.</span>
-                  <span className="badge bg-secondary-dark">Staff: 3</span>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
