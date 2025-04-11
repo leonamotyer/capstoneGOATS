@@ -1,10 +1,20 @@
 [
   {
     "id": 1,
-    "name": "Alysha Krell",
+    "name": "Mamta Verma",
     "address": "123 Main St, Calgary, AB",
     "role": "Driver",
-    "email": "alice@example.com",
+    "email": "mamta@example.com",
+    "phone": "555-1234",
+    "wage": 20,
+    "isAvailable": true
+  },
+  {
+    "id": 9,
+    "name": "Ali Moussa",
+    "address": "123 Main St, Calgary, AB",
+    "role": "Driver",
+    "email": "ali@example.com",
     "phone": "555-1234",
     "wage": 20,
     "isAvailable": true
@@ -14,7 +24,7 @@
     "name": "Leona Motyer",
     "address": "123 Main St, Calgary, AB",
     "role": "Server",
-    "email": "bob@example.com",
+    "email": "leona@example.com",
     "phone": "555-5678",
     "wage": 40,
     "isAvailable": false
@@ -24,7 +34,7 @@
     "name": "Yoohyun Kim",
     "address": "123 Main St, Calgary, AB",
     "role": "Admin",
-    "email": "charlie@example.com",
+    "email": "kim@example.com",
     "phone": "555-9876",
     "wage": 30,
     "isAvailable": true
@@ -34,7 +44,7 @@
     "name": "Chester Laraya",
     "address": "123 Main St, Calgary, AB",
     "role": "Driver",
-    "email": "diana@example.com",
+    "email": "chester@example.com",
     "phone": "555-4321",
     "wage": 28,
     "isAvailable": true
@@ -44,7 +54,7 @@
     "name": "Rudra Pratap",
     "address": "123 Main St, Calgary, AB",
     "role": "Server",
-    "email": "eve@example.com",
+    "email": "rudra@example.com",
     "phone": "555-8765",
     "wage": 22,
     "isAvailable": true
@@ -54,9 +64,19 @@
     "name": "Tehjib Signh",
     "address": "123 Main St, Calgary, AB",
     "role": "Server",
-    "email": "eve@example.com",
+    "email": "tehjib@example.com",
     "phone": "555-8765",
     "wage": 22,
+    "isAvailable": true
+  },
+  {
+    "id": 7,
+    "name": "Alysha Krell",
+    "address": "123 Main St, Calgary, AB",
+    "role": "Driver",
+    "email": "alysha@example.com",
+    "phone": "555-1234",
+    "wage": 20,
     "isAvailable": true
   }
 ]

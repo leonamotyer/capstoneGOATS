@@ -1,47 +1,45 @@
-'use client'
-import { useState } from 'react'
-import { useAuth } from '../../Auth/auth-context'
+'use client';
+import { useState, useEffect } from 'react';
 
 export default function Employees() {
-  const { user } = useAuth()
-  const [employees, setEmployees] = useState([])
-  const [formData, setFormData] = useState({
-    name: '',
-    wage: '',
-    availability: [],
-    location: ''
-  })
+  const [employees, setEmployees] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setEmployees([...employees, { ...formData, id: Date.now() }])
-    setFormData({ name: '', wage: '', availability: [], location: '' })
-  }
+  // Fetch employees from employee.json
+  useEffect(() => {
+    fetch('/employee.json')
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => setEmployees(data))
+      .catch((error) => console.error('Error fetching employees:', error));
+  }, []);
 
   return (
-    <div className="card">
+    <div className="employees-page">
       <h2 className="text-2xl mb-4">Employee Management</h2>
-      <form onSubmit={handleSubmit} className="grid gap-4">
-        <input
-          type="text"
-          placeholder="Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-        />
-        {/* Add other form fields */}
-        <button type="submit" className="button">Add Employee</button>
-      </form>
-
-      <div className="mt-6 grid">
-        {employees.map(employee => (
-          <div key={employee.id} className="card">
-            <h3>{employee.name}</h3>
-            <p>Wage: ${employee.wage}/hr</p>
-            {/* Add other employee details */}
-          </div>
-        ))}
+      <div className="employee-list grid gap-4">
+        {employees.length > 0 ? (
+          employees.map((employee) => (
+            <div key={employee.id} className="employee-card bg-white p-4 rounded shadow">
+              <h3 className="text-lg font-semibold">{employee.name}</h3>
+              <p><strong>Role:</strong> {employee.role}</p>
+              <p><strong>Address:</strong> {employee.address}</p>
+              <p><strong>Email:</strong> <a href={`mailto:${employee.email}`} className="text-blue-500">{employee.email}</a></p>
+              <p><strong>Phone:</strong> {employee.phone}</p>
+              <p><strong>Wage:</strong> ${employee.wage}/hr</p>
+              <p>
+                <strong>Status:</strong>{' '}
+                <span className={employee.isAvailable ? 'text-green-500' : 'text-red-500'}>
+                  {employee.isAvailable ? 'Available' : 'Unavailable'}
+                </span>
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500">No employees found.</p>
+        )}
       </div>
     </div>
-  )
+  );
 }

@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
                 <a href="/employees/newEmployee" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + Add Staff
                 </a>
-                <a href="/events/newEvent" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
+                <a href="/events" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + Create Event
                 </a>
               </nav>
