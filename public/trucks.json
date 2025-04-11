@@ -17,7 +17,7 @@
     "name": "YYC Lemonade",
     "type": "Beverage Truck",
     "capacity": 300,
-    "status": "In Use",
+    "status": "Unavailable",
     "driver": null
   },
   {
@@ -51,7 +51,7 @@
     "name": "Family Dogs",
     "type": "Food Truck",
     "capacity": 450,
-    "status": "In Use",
+    "status": "Unavailable",
     "driver": {
       "id": 4,
       "name": "Slava Davis",
@@ -64,7 +64,7 @@
     "name": "Old Lemonade",
     "type": "Beverage Truck",
     "capacity": 300,
-    "status": "In Use",
+    "status": "Unavailable",
     "driver": null
   },
   {
@@ -72,7 +72,7 @@
     "name": "White Lemonade",
     "type": "Beverage Truck",
     "capacity": 300,
-    "status": "In Use",
+    "status": "Unavailable",
     "driver": null
   },
   {
@@ -80,7 +80,7 @@
     "name": "New Lemonade",
     "type": "Beverage Truck",
     "capacity": 300,
-    "status": "In Use",
+    "status": "Unavailable",
     "driver": null
   },
   {
@@ -109,7 +109,7 @@
     "name": "Bear Balls",
     "type": "Food Truck",
     "capacity": 450,
-    "status": "In Use",
+    "status": "Unavailable",
     "driver": {
       "id": 4,
       "name": "Roberta Davis",
@@ -122,7 +122,7 @@
     "name": "Family Cheesed",
     "type": "Food Truck",
     "capacity": 450,
-    "status": "In Use",
+    "status": "Available",
     "driver": {
       "id": 4,
       "name": "Slava Davis",
@@ -135,7 +135,7 @@
     "name": "Santa's Sleigh",
     "type": "Holiday Truck",
     "capacity": 450,
-    "status": "In Use",
+    "status": "Unavailable",
     "driver": {
       "id": 4,
       "name": "Slava Davis",
