@@ -1,187 +1,63 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function AddEventPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    date: '',
-    time: '',
-    location: '',
-    requiredServers: '',
-    contactName: '',
-    contactEmail: '',
-    contactPhone: '',
-    trucks: [], // Array to store selected trucks
-  });
+export default function Events() {
+  const [events, setEvents] = useState([]);
+  const router = useRouter();
 
-  const [trucks, setTrucks] = useState([]); // State to store truck data
-
-  // Fetch truck data from trucks.json
+  // Fetch events from events.json
   useEffect(() => {
-    fetch('/trucks.json')
+    fetch('/events.json')
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => setTrucks(data))
-      .catch((error) => console.error('Error fetching trucks:', error));
+      .then((data) => setEvents(data))
+      .catch((error) => console.error('Error fetching events:', error));
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleTruckSelection = (truckId) => {
-    if (formData.trucks.includes(truckId)) {
-      // Remove truck if already selected
-      setFormData({
-        ...formData,
-        trucks: formData.trucks.filter((id) => id !== truckId),
-      });
-    } else {
-      // Add truck if not already selected
-      setFormData({
-        ...formData,
-        trucks: [...formData.trucks, truckId],
-      });
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Event Created:', formData);
-    // Add logic to save the event data (e.g., POST request to an API)
-  };
-
   return (
-    <div className="add-event-page">
-      <h1 className="form-header">Add New Event</h1>
-      <form onSubmit={handleSubmit} className="event-form">
-        <div className="input-group">
-          <label htmlFor="name" className="input-label">Event Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="date" className="input-label">Date</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="time" className="input-label">Time</label>
-          <input
-            type="time"
-            id="time"
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="location" className="input-label">Location</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="requiredServers" className="input-label">Required Servers</label>
-          <input
-            type="number"
-            id="requiredServers"
-            name="requiredServers"
-            value={formData.requiredServers}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="contactName" className="input-label">Contact Name</label>
-          <input
-            type="text"
-            id="contactName"
-            name="contactName"
-            value={formData.contactName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="contactEmail" className="input-label">Contact Email</label>
-          <input
-            type="email"
-            id="contactEmail"
-            name="contactEmail"
-            value={formData.contactEmail}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="contactPhone" className="input-label">Contact Phone</label>
-          <input
-            type="tel"
-            id="contactPhone"
-            name="contactPhone"
-            value={formData.contactPhone}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* Truck Selection Section */}
-        <div className="input-group">
-          <label className="input-label">Select Trucks</label>
-          <div className="truck-list">
-            {trucks.map((truck) => (
-              <label key={truck.id} className="truck-item flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={formData.trucks.includes(truck.id)}
-                  onChange={() => handleTruckSelection(truck.id)}
-                />
-                <span>
-                  {truck.name} ({truck.type}) -{' '}
-                  <span className={truck.isAvailable ? 'status-available' : 'status-unavailable'}>
-                    {truck.isAvailable ? 'Available' : 'Unavailable'}
-                  </span>
+    <div className="events-page">
+      <h2 className="text-2xl mb-4">Event Management</h2>
+      <div className="event-list grid gap-4">
+        {events.length > 0 ? (
+          events.map((event) => (
+            <div key={event.id} className="event-card bg-white p-4 rounded shadow">
+              <h3 className="text-lg font-semibold">{event.name}</h3>
+              <p><strong>Date:</strong> {event.date}</p>
+              <p><strong>Time:</strong> {event.time}</p>
+              <p><strong>Location:</strong> {event.location}</p>
+              <p><strong>Required Servers:</strong> {event.requiredServers}</p>
+              <p>
+                <strong>Status:</strong>{' '}
+                <span className={event.status === 'Scheduled' ? 'text-green-500' : 'text-red-500'}>
+                  {event.status}
                 </span>
-              </label>
-            ))}
-          </div>
-        </div>
+              </p>
+              <button
+                className="button mt-2"
+                onClick={() => router.push(`/events/${event.id}`)}
+              >
+                View Details
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500">No events found.</p>
+        )}
+      </div>
 
-        <button type="submit" className="button">Create Event</button>
-      </form>
+      {/* Create Event Button */}
+      <div className="mt-6">
+        <button
+          className="button bg-primary-medium text-white w-full py-2 rounded-lg hover:bg-primary-dark"
+          onClick={() => router.push('/events/newEvent')}
+        >
+          + Create Event
+        </button>
+      </div>
     </div>
   );
 }
