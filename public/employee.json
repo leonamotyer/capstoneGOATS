@@ -92,5 +92,27 @@
     "wage": 20,
     "isAvailable": true,
     "availability": []
+  },
+  {
+    "id": 8,
+    "name": "Jeremy Andrews",
+    "address": "123 Main St, Calgary, AB",
+    "role": "Admin",
+    "email": "jeremy@example.com",
+    "phone": "555-1234",
+    "wage": 20,
+    "isAvailable": true,
+    "availability": []
+  },
+  {
+    "id": 10,
+    "name": "Jennifer Andrews",
+    "address": "123 Main St, Calgary, AB",
+    "role": "Admin",
+    "email": "jen@example.com",
+    "phone": "555-1234",
+    "wage": 20,
+    "isAvailable": true,
+    "availability": []
   }
 ]
