@@ -11,7 +11,10 @@ export default function CreateEmployee() {
     phone: '',
     wage: '',
     isAvailable: false,
+    availability: [], // Array to store selected days of the week
   });
+
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -19,6 +22,38 @@ export default function CreateEmployee() {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
+  };
+
+  const handleDaySelection = (day) => {
+    if (formData.availability.includes(day)) {
+      // Remove day if already selected
+      setFormData({
+        ...formData,
+        availability: formData.availability.filter((d) => d !== day),
+      });
+    } else {
+      // Add day if not already selected
+      setFormData({
+        ...formData,
+        availability: [...formData.availability, day],
+      });
+    }
+  };
+
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      // Select all days
+      setFormData({
+        ...formData,
+        availability: [...daysOfWeek],
+      });
+    } else {
+      // Deselect all days
+      setFormData({
+        ...formData,
+        availability: [],
+      });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -118,6 +153,31 @@ export default function CreateEmployee() {
             />
             Is Available
           </label>
+        </div>
+
+        {/* Availability Selection */}
+        <div className="input-group">
+          <label className="input-label">Availability (Days of the Week)</label>
+          <div className="availability-options">
+            <label className="availability-label">
+              <input
+                type="checkbox"
+                checked={formData.availability.length === daysOfWeek.length}
+                onChange={handleSelectAll}
+              />
+              Select All
+            </label>
+            {daysOfWeek.map((day) => (
+              <label key={day} className="availability-label">
+                <input
+                  type="checkbox"
+                  checked={formData.availability.includes(day)}
+                  onChange={() => handleDaySelection(day)}
+                />
+                {day}
+              </label>
+            ))}
+          </div>
         </div>
 
         <button type="submit" className="button">Create Employee</button>

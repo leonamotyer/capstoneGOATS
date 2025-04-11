@@ -1,8 +1,8 @@
 :root {
   --primary-dark: #006400;
   --primary-medium: #228b22;
-  --primary-light: #2e8b57;
-  --secondary-dark: #f0e68c;
+  --primary-light: #4dab76;
+  --secondary-dark: #faee7f;
   --secondary-light: #f5f5dc;
   --shadow: rgba(0, 0, 0, 0.2);
   --white: #ffffff;
@@ -379,6 +379,37 @@ tr:hover td {
 .employee-name {
   font-size: 0.875rem;
 }
+/* Filter Buttons */
+.filter-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Match employee card size */
+  gap: 1.5rem; /* Space between buttons */
+  margin-bottom: 2rem; /* Add spacing below buttons */
+}
+
+.filter-buttons .button {
+  padding: 1rem; /* Add padding for better spacing */
+  text-align: center;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-buttons .button.bg-primary-dark {
+  background-color: var(--primary-dark); /* Dark green for active button */
+  color: var(--white);
+}
+
+.filter-buttons .button.bg-gray-200 {
+  background-color: #e5e7eb; /* Light gray for inactive buttons */
+  color: var(--primary-dark);
+}
+
+.filter-buttons .button:hover {
+  background-color: var(--primary-medium); /* Medium green on hover */
+  color: var(--white);
+}
 
 /* Assigned Employee Styles */
 .assigned-employees-container {
@@ -542,7 +573,7 @@ tr:hover td {
 /* ========== Event Details Page Styles ========== */
 .event-details-page {
   padding: 1.5rem;
-  background: linear-gradient(to right, #EFF6FF, #E0F2FE);
+  background: var(--secondary-dark);
   min-height: 100vh;
 }
 
@@ -698,4 +729,11 @@ tr:hover td {
 
 .employee-card p {
   margin-bottom: 0.25rem;
+}
+.text-primary-medium {
+  color: var(--primary-medium);
+}
+
+.text-gray-500 {
+  color: #6b7280;
 }
