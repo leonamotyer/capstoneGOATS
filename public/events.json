@@ -38,7 +38,7 @@
   {
     "id": 2,
     "name": "City Park Concert",
-    "date": "2025-04-20",
+    "date": "2025-04-11",
     "location": "City Park",
     "time": "4:00 PM - 10:00 PM",
     "requiredServers": 5,
@@ -59,6 +59,164 @@
           "name": "Bob Smith",
           "email": "bob@example.com",
           "phone": "555-5678"
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Farmers Market",
+    "date": "2025-04-12",
+    "location": "Main Square",
+    "time": "8:00 AM - 2:00 PM",
+    "requiredServers": 2,
+    "contact": {
+      "name": "Emily Davis",
+      "phone": "555-4321",
+      "email": "emilydavis@example.com"
+    },
+    "trucks": [
+      {
+        "id": 4,
+        "name": "Grill Master",
+        "type": "BBQ Truck",
+        "capacity": 600,
+        "status": "Available",
+        "driver": {
+          "id": 3,
+          "name": "Charlie Brown",
+          "email": "charlie@example.com",
+          "phone": "555-8765"
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Art Fair",
+    "date": "2025-04-12",
+    "location": "Art District",
+    "time": "10:00 AM - 5:00 PM",
+    "requiredServers": 4,
+    "contact": {
+      "name": "Sophia Lee",
+      "phone": "555-6543",
+      "email": "sophialee@example.com"
+    },
+    "trucks": [
+      {
+        "id": 5,
+        "name": "Ice Cream Delight",
+        "type": "Dessert Truck",
+        "capacity": 300,
+        "status": "In Use",
+        "driver": null
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Tech Expo",
+    "date": "2025-04-13",
+    "location": "Convention Center",
+    "time": "9:00 AM - 6:00 PM",
+    "requiredServers": 6,
+    "contact": {
+      "name": "Michael Johnson",
+      "phone": "555-7890",
+      "email": "michaelj@example.com"
+    },
+    "trucks": [
+      {
+        "id": 6,
+        "name": "Coffee Express",
+        "type": "Beverage Truck",
+        "capacity": 200,
+        "status": "Available",
+        "driver": {
+          "id": 4,
+          "name": "Diana Prince",
+          "email": "diana@example.com",
+          "phone": "555-3456"
+        }
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Spring Carnival",
+    "date": "2025-04-13",
+    "location": "Fairgrounds",
+    "time": "12:00 PM - 8:00 PM",
+    "requiredServers": 8,
+    "contact": {
+      "name": "Chris Evans",
+      "phone": "555-5678",
+      "email": "chrise@example.com"
+    },
+    "trucks": [
+      {
+        "id": 7,
+        "name": "Taco Fiesta",
+        "type": "Food Truck",
+        "capacity": 400,
+        "status": "Available",
+        "driver": {
+          "id": 5,
+          "name": "Steve Rogers",
+          "email": "steve@example.com",
+          "phone": "555-6789"
+        }
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Charity Run",
+    "date": "2025-04-14",
+    "location": "City Stadium",
+    "time": "7:00 AM - 12:00 PM",
+    "requiredServers": 3,
+    "contact": {
+      "name": "Natasha Romanoff",
+      "phone": "555-9876",
+      "email": "natasha@example.com"
+    },
+    "trucks": [
+      {
+        "id": 8,
+        "name": "Smoothie Bliss",
+        "type": "Beverage Truck",
+        "capacity": 250,
+        "status": "In Use",
+        "driver": null
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Book Fair",
+    "date": "2025-04-14",
+    "location": "Library Plaza",
+    "time": "10:00 AM - 4:00 PM",
+    "requiredServers": 2,
+    "contact": {
+      "name": "Bruce Wayne",
+      "phone": "555-1234",
+      "email": "bruce@example.com"
+    },
+    "trucks": [
+      {
+        "id": 9,
+        "name": "Pizza Paradise",
+        "type": "Food Truck",
+        "capacity": 500,
+        "status": "Available",
+        "driver": {
+          "id": 6,
+          "name": "Clark Kent",
+          "email": "clark@example.com",
+          "phone": "555-4321"
         }
       }
     ]
