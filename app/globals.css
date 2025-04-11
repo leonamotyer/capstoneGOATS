@@ -699,3 +699,10 @@ tr:hover td {
 .employee-card p {
   margin-bottom: 0.25rem;
 }
+.text-primary-medium {
+  color: var(--primary-medium);
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}

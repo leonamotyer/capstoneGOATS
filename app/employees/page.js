@@ -34,6 +34,16 @@ export default function Employees() {
                   {employee.isAvailable ? 'Available' : 'Unavailable'}
                 </span>
               </p>
+              <p>
+                <strong>Availability:</strong>{' '}
+                {employee.availability && employee.availability.length > 0 ? (
+                  <span className="text-primary-medium">
+                    {employee.availability.join(', ')}
+                  </span>
+                ) : (
+                  <span className="text-gray-500">Not available</span>
+                )}
+              </p>
             </div>
           ))
         ) : (
