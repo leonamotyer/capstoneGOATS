@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 
@@ -15,6 +15,7 @@ export default function TruckCard({ truck, viewMode }) {
       </h3>
       {viewMode === 'detailed' && (
         <>
+          <p>T-{String(truck.id).padStart(4, '0')}: {truck.name}</p>
           <p className="text-primary-medium mb-2">Type: {truck.type}</p>
           <p className="text-primary-medium mb-2">Capacity: {truck.capacity} items</p>
           <p className="text-primary-medium mb-2">Location: {truck.location}</p>
@@ -28,6 +29,18 @@ export default function TruckCard({ truck, viewMode }) {
         >
           {truck.status}
         </span>
+      </div>
+      <div className="mt-4">
+        <h4 className="font-bold text-md">Assigned Driver:</h4>
+        {truck.driver ? (
+          <div className="driver-info border rounded-lg p-2 shadow-md bg-gray-100 mt-2">
+            <p className="text-sm font-bold">D-{String(truck.driver.id).padStart(5, '0')}: {truck.driver.name}</p>
+            <p className="text-sm text-primary-medium">Email: {truck.driver.email}</p>
+            <p className="text-sm text-primary-medium">Phone: {truck.driver.phone}</p>
+          </div>
+        ) : (
+          <p className="text-sm text-red-500 mt-2">No driver assigned. A driver is required for this truck.</p>
+        )}
       </div>
     </div>
   );
@@ -52,8 +65,41 @@ export function TruckList({ trucks, viewMode }) {
 
 // Example data for testing
 const exampleTrucks = [
-  { id: 1, name: 'Neon', type: 'Food Truck', capacity: 500, location: 'Downtown Core', status: 'Available' },
-  { id: 2, name: 'Lemonade', type: 'Beverage Truck', capacity: 300, location: 'City Park', status: 'In Use' },
-  { id: 3, name: 'Cookie Dough', type: 'Dessert Truck', capacity: 400, location: 'Mall Area', status: 'Available' },
+  {
+    id: 1,
+    name: 'Neon',
+    type: 'Food Truck',
+    capacity: 500,
+    location: 'Downtown Core',
+    status: 'Available',
+    driver: {
+      id: 1,
+      name: 'Alice Johnson',
+      email: 'alice@example.com',
+      phone: '555-1234',
+    },
+  },
+  {
+    id: 2,
+    name: 'Lemonade',
+    type: 'Beverage Truck',
+    capacity: 300,
+    location: 'City Park',
+    status: 'In Use',
+    driver: null, // No driver assigned
+  },
+  {
+    id: 3,
+    name: 'Cookie Dough',
+    type: 'Dessert Truck',
+    capacity: 400,
+    location: 'Mall Area',
+    status: 'Available',
+    driver: {
+      id: 2,
+      name: 'Bob Smith',
+      email: 'bob@example.com',
+      phone: '555-5678',
+    },
+  },
 ];
-

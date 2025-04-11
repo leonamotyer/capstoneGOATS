@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Food Festival",
+    "date": "2025-04-11",
+    "location": "Downtown Core",
+    "time": "10:00 AM - 6:00 PM",
+    "requiredServers": 3,
+    "contact": {
+      "name": "John Doe",
+      "phone": "555-6789",
+      "email": "johndoe@example.com"
+    },
+    "trucks": [
+      {
+        "id": 1,
+        "name": "Neon",
+        "type": "Food Truck",
+        "capacity": 500,
+        "status": "Available",
+        "driver": {
+          "id": 1,
+          "name": "Alice Johnson",
+          "email": "alice@example.com",
+          "phone": "555-1234"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Lemonade",
+        "type": "Beverage Truck",
+        "capacity": 300,
+        "status": "In Use",
+        "driver": null
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "City Park Concert",
+    "date": "2025-04-20",
+    "location": "City Park",
+    "time": "4:00 PM - 10:00 PM",
+    "requiredServers": 5,
+    "contact": {
+      "name": "Jane Smith",
+      "phone": "555-9876",
+      "email": "janesmith@example.com"
+    },
+    "trucks": [
+      {
+        "id": 3,
+        "name": "Cookie Dough",
+        "type": "Dessert Truck",
+        "capacity": 400,
+        "status": "Available",
+        "driver": {
+          "id": 2,
+          "name": "Bob Smith",
+          "email": "bob@example.com",
+          "phone": "555-5678"
+        }
+      }
+    ]
+  }
+]

@@ -1,65 +1,159 @@
-'use client'
+'use client';
 
-import { FiClock, FiMapPin } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
+import { DayPilotMonth } from '@daypilot/daypilot-lite-react';
 import EventCard from '../events/eventInfo/eventCard';
+import DriverCard from '../employees/employeeInfo/driverCard';
+import ServerCard from '../employees/employeeInfo/serverCard';
+import TruckCard from '../employees/employeeInfo/truckCard';
 
 export default function Schedule() {
-  const events = [
-    {
-      id: 1,
-      name: 'Food Festival',
-      date: 'November 15, 2024',
-      location: 'Downtown Core',
-      time: '10:00 AM - 6:00 PM',
-      trucks: [
-        { id: 1, name: 'Neon', type: 'Food Truck', capacity: 500, location: 'Downtown Core', status: 'Available' },
-        { id: 2, name: 'Lemonade', type: 'Beverage Truck', capacity: 300, location: 'City Park', status: 'In Use' },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Music Concert',
-      date: 'November 16, 2024',
-      location: 'City Park',
-      time: '5:00 PM - 11:00 PM',
-      trucks: [
-        { id: 3, name: 'Cookie Dough', type: 'Dessert Truck', capacity: 400, location: 'Mall Area', status: 'Available' },
-        { id: 4, name: 'Grill Master', type: 'BBQ Truck', capacity: 600, location: 'City Park', status: 'In Use' },
-      ],
-    },
-  ];
+  const [viewMode, setViewMode] = useState('weekly'); // State to toggle between weekly and monthly views
+  const [selectedDate, setSelectedDate] = useState(new Date()); // State to track the selected date
+  const [events, setEvents] = useState([]); // State to store event data
 
-  return (
-    <div className="data-card">
-      <div className="form-header">
-        <h2 className="text-2xl font-bold">Weekly Schedule</h2>
-        <p className="text-primary-medium">November 12-18, 2024</p>
-      </div>
+  // Fetch event data from JSON file
+  useEffect(() => {
+    fetch('./public/events.json') 
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Fetched events:', data); // Debugging
+        setEvents(data);
+      })
+      .catch((error) => console.error('Error fetching event data:', error));
+  }, []);
 
-      <div className="grid grid-cols-7 gap-4 mt-6">
-        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
+  const handleServerChange = (eventId, value) => {
+    setEvents((prevEvents) =>
+      prevEvents.map((event) =>
+        event.id === eventId ? { ...event, requiredServers: value } : event
+      )
+    );
+  };
+  const renderWeeklySchedule = () => {
+    const currentDate = new Date();
+    const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay())); // Start of the week (Sunday)
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6); // End of the week (Saturday)
+  
+    console.log('Start of Week:', startOfWeek, 'End of Week:', endOfWeek); // Debugging
+  
+    const eventsThisWeek = events.filter((event) => {
+      const eventDate = new Date(event.date); // Parse event date
+      console.log('Event:', event.name, 'Date:', eventDate); // Debugging
+      return eventDate >= startOfWeek && eventDate <= endOfWeek;
+    });
+  
+    console.log('Events This Week:', eventsThisWeek); // Debugging
+  
+    if (eventsThisWeek.length === 0) {
+      return <p className="text-center text-gray-500">No events scheduled for this week.</p>;
+    }
+  
+    return (
+      <div className="space-y-6 mt-6">
+        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
           <div key={day} className="day-column border rounded-lg p-3">
             <h3 className="font-bold mb-2">{day}</h3>
             <div className="space-y-2">
-              {events[index] && (
-                <div className="shift-card">
-                  <div className="flex items-center gap-2 text-sm">
-                    <FiClock className="text-primary-medium" />
-                    <span>{events[index].time}</span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <FiMapPin className="text-primary-medium" />
-                    <span>{events[index].location}</span>
-                  </div>
-                  <div className="mt-2">
-                    <EventCard event={events[index]} />
-                  </div>
-                </div>
-              )}
+              {eventsThisWeek
+                .filter((event) => new Date(event.date).getDay() === index)
+                .map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
             </div>
           </div>
         ))}
       </div>
+    );
+  };
+  const renderMonthlySchedule = () => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+  
+    console.log('Current Month:', currentMonth, 'Current Year:', currentYear); // Debugging
+  
+    const eventsThisMonth = events.filter((event) => {
+      const eventDate = new Date(event.date); // Parse event date
+      console.log('Event Date:', eventDate); // Debugging
+      return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
+    });
+  
+    console.log('Events This Month:', eventsThisMonth); // Debugging
+  
+    const dayPilotEvents = eventsThisMonth.map((event) => ({
+      id: event.id,
+      text: event.name,
+      start: event.date,
+      end: event.date,
+      data: event,
+    }));
+  
+    return (
+      <div className="mt-6">
+        <DayPilotMonth
+          startDate={`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`}
+          events={dayPilotEvents}
+          onEventClick={(args) => {
+            const clickedEvent = events.find((event) => event.id === args.e.data.id);
+            alert(`Event: ${clickedEvent.name}\nLocation: ${clickedEvent.location}`);
+          }}
+          onBeforeEventRender={(args) => {
+            const event = args.data.data;
+            args.html = `
+              <div class="custom-event-card">
+                <h3 class="font-bold">${event.name}</h3>
+                <p class="text-sm">${event.time}</p>
+                <p class="text-xs text-gray-500">${event.location}</p>
+              </div>
+            `;
+            args.cssClass = "custom-event";
+          }}
+          eventHeight={70}
+          cellHeight={150}
+          headerHeight={30}
+          showWeekend={true}
+        />
+      </div>
+    );
+  };
+
+  return (
+    <div className="data-card">
+      <div className="form-header flex justify-between items-center">
+        <div>
+          <h2 className="text-2xl font-bold">Schedule</h2>
+          <p className="text-primary-medium">
+            {selectedDate.toLocaleString('default', { month: 'long' })} {selectedDate.getFullYear()}
+          </p>
+        </div>
+        <div className="view-toggle flex gap-2">
+          <button
+            className={`px-4 py-2 rounded-lg ${
+              viewMode === 'weekly' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+            }`}
+            onClick={() => setViewMode('weekly')}
+          >
+            Weekly View
+          </button>
+          <button
+            className={`px-4 py-2 rounded-lg ${
+              viewMode === 'monthly' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+            }`}
+            onClick={() => setViewMode('monthly')}
+          >
+            Monthly View
+          </button>
+        </div>
+      </div>
+
+      {viewMode === 'weekly' ? renderWeeklySchedule() : renderMonthlySchedule()}
     </div>
   );
 }
