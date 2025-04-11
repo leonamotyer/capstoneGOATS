@@ -1,25 +1,25 @@
 [
   {
     "id": 1,
-    "name": "Alice Johnson",
+    "name": "Alysha Krell",
     "role": "Driver",
     "email": "alice@example.com",
     "phone": "555-1234",
-    "wage": 25,
+    "wage": 20,
     "isAvailable": true
   },
   {
     "id": 2,
-    "name": "Bob Smith",
+    "name": "Leona Motyer",
     "role": "Server",
     "email": "bob@example.com",
     "phone": "555-5678",
-    "wage": 20,
+    "wage": 40,
     "isAvailable": false
   },
   {
     "id": 3,
-    "name": "Charlie Brown",
+    "name": "Yoohyun Kim",
     "role": "Admin",
     "email": "charlie@example.com",
     "phone": "555-9876",
@@ -28,7 +28,7 @@
   },
   {
     "id": 4,
-    "name": "Diana Prince",
+    "name": "Chester Laraya",
     "role": "Driver",
     "email": "diana@example.com",
     "phone": "555-4321",
@@ -37,7 +37,16 @@
   },
   {
     "id": 5,
-    "name": "Eve Adams",
+    "name": "Rudra Pratap",
+    "role": "Server",
+    "email": "eve@example.com",
+    "phone": "555-8765",
+    "wage": 22,
+    "isAvailable": true
+  },
+  {
+    "id": 6,
+    "name": "Tehjib Signh",
     "role": "Server",
     "email": "eve@example.com",
     "phone": "555-8765",

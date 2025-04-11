@@ -265,3 +265,411 @@ tr:hover td {
     margin: 0 auto;
   }
 }
+
+/* Event Card Styles */
+.event-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.event-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: block;
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.event-info {
+  color:var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.event-section {
+  margin-top: 1.5rem;
+}
+
+.event-subtitle {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-medium);
+}
+
+/* Button Styles */
+.btn-primary {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: var(--primary-medium);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background-color: #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 24rem;
+}
+
+.modal-title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+}
+
+.modal-body {
+  max-height: 15rem;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.modal-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Employee Selection Styles */
+.employee-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.employee-label-selected {
+  background-color: var(--secondary-light);
+}
+
+.employee-checkbox {
+  accent-color: var(--primary-medium);
+}
+
+.employee-name {
+  font-size: 0.875rem;
+}
+
+/* Assigned Employee Styles */
+.assigned-employees-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.assigned-employee-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary-light);
+}
+
+.assigned-employee-name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+}
+
+.assigned-employee-role {
+  color: var(--primary-light);
+}
+
+/* Utility Classes */
+.text-gray-500 {
+  color: #6b7280;
+}
+
+/* ========== Schedule Page Styles ========== */
+.schedule-container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.schedule-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-subtitle {
+  color: #4B5563;
+}
+
+.view-toggle-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-toggle-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.view-toggle-button-active {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.view-toggle-button-inactive {
+  background-color: var(--primary-light);
+  color: #E5E7EB;
+}
+
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.navigation-button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-dark);
+  color:var(--white);
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* Weekly Schedule Styles */
+.weekly-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  margin-top: 2.25rem;
+}
+
+.day-card {
+  border: 2px solid #E5E7EB;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.day-card-has-events {
+  background-color: #FEF3C7;
+}
+
+.day-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+.day-events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.empty-week-message {
+  text-align: center;
+  color: var(--primary-dark);
+  margin-top: 2rem;
+}
+
+/* Monthly Schedule Styles */
+.monthly-schedule {
+  margin-top: 1.5rem;
+}
+
+/* Custom DayPilot Styling */
+.custom-event {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.custom-event-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--primary-dark);
+}
+
+.custom-event-time {
+  font-size: 14px;
+}
+
+.custom-event-location {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+/* ========== Event Details Page Styles ========== */
+.event-details-page {
+  padding: 1.5rem;
+  background: linear-gradient(to right, #EFF6FF, #E0F2FE);
+  min-height: 100vh;
+}
+
+.back-button {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-light);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.event-detail-card {
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.event-detail-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 1.5rem;
+}
+
+.event-detail-info {
+  margin-bottom: 1rem;
+}
+
+.event-detail-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #111827;
+}
+
+.info-text {
+  font-size: 1.125rem;
+  color: #4B5563;
+}
+
+.info-link {
+  color: #3B82F6;
+  text-decoration: none;
+}
+
+.info-link:hover {
+  text-decoration: underline;
+}
+
+.assigned-section {
+  margin-top: 2rem;
+}
+
+.assigned-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 1rem;
+}
+
+.assigned-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .assigned-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.truck-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.truck-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.truck-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.truck-info {
+  margin-bottom: 0.5rem;
+  color: #4B5563;
+}
+
+.truck-info-label {
+  font-weight: 600;
+}
+
+.status-available {
+  color: #10B981;
+}
+
+.status-unavailable {
+  color: #EF4444;
+}
+
+.schedule-subtitle {
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  font-weight: 500;
+}

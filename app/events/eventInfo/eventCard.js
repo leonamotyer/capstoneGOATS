@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 
 export default function EventCard({ event, trucks, employees }) {
   const [assignedEmployees, setAssignedEmployees] = useState([]);
+  const [assignedTrucks, setAssignedTrucks] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [truckModalOpen, setTruckModalOpen] = useState(false);
 
   const handleEmployeeSelection = (employee) => {
     if (assignedEmployees.some((assigned) => assigned.id === employee.id)) {
@@ -14,132 +16,73 @@ export default function EventCard({ event, trucks, employees }) {
     }
   };
 
+  const handleTruckSelection = (truck) => {
+    if (assignedTrucks.some((assigned) => assigned.id === truck.id)) {
+      setAssignedTrucks(assignedTrucks.filter((assigned) => assigned.id !== truck.id));
+    } else {
+      setAssignedTrucks([...assignedTrucks, truck]);
+    }
+  };
+
   return (
-    <div style={{ 
-      border: '1px solid #e5e7eb', 
-      borderRadius: '0.5rem', 
-      padding: '1rem', 
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', 
-      backgroundColor: 'white',
-      marginBottom: '1rem'
-    }}>
-      <a href={`/events/${event.id}`} style={{ 
-        fontSize: '1.25rem', 
-        fontWeight: 'bold', 
-        marginBottom: '1rem', 
-        display: 'block',
-        color: '#006400', /* Dark green from globals.css */
-        textDecoration: 'none'
-      }}>
+    <div className="event-card">
+      <a href={`/events/${event.id}`} className="event-title">
         {event.name}
       </a>
-      <p style={{ color: '#4b5563', marginBottom: '0.5rem' }}>Date: {event.date}</p>
-      <p style={{ color: '#4b5563', marginBottom: '0.5rem' }}>Location: {event.location}</p>
-      <p style={{ color: '#4b5563', marginBottom: '0.5rem' }}>Time: {event.time}</p>
+      <p className="event-info">Date: {event.date}</p>
+      <p className="event-info">Location: {event.location}</p>
+      <p className="event-info">Time: {event.time}</p>
 
-      <div style={{ marginTop: '1.5rem' }}>
-        <h4 style={{ fontWeight: 'bold', marginBottom: '0.5rem', color: '#228b22' }}>Required Servers: {event.requiredServers}</h4>
+      <div className="event-section">
+        <h4 className="event-subtitle">Required Servers: {event.requiredServers}</h4>
         <button
-          style={{
-            padding: '0.5rem 1rem',
-            border: '1px solid #e5e7eb',
-            borderRadius: '0.5rem',
-            backgroundColor: '#228b22', /* Medium green from globals.css */
-            color: 'white',
-            cursor: 'pointer'
-          }}
+          className="btn-primary"
           onClick={() => setModalOpen(true)}
         >
           Select Employees
         </button>
 
         {modalOpen && (
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 50,
-              backgroundColor: 'rgba(0, 0, 0, 0.5)'
-            }}
-          >
-            <div style={{
-              backgroundColor: 'white',
-              padding: '1.5rem',
-              borderRadius: '0.5rem',
-              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-              width: '24rem'
-            }}>
-              <h3 style={{ 
-                fontSize: '1.125rem', 
-                fontWeight: 'bold', 
-                marginBottom: '1rem',
-                color: '#006400' /* Dark green */
-              }}>
+          <div className="modal-overlay">
+            <div className="modal-container">
+              <h3 className="modal-title">
                 Select Employees
               </h3>
-              <div style={{
-                maxHeight: '15rem',
-                overflowY: 'auto',
-                border: '1px solid #e5e7eb',
-                borderRadius: '0.5rem',
-                padding: '0.75rem'
-              }}>
+              <div className="modal-body">
                 {employees && employees.length > 0 ? (
                   employees.map((employee) => (
                     <label
                       key={employee.id}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem',
-                        marginBottom: '0.5rem',
-                        padding: '0.5rem',
-                        borderRadius: '0.5rem',
-                        backgroundColor: assignedEmployees.some((assigned) => assigned.id === employee.id) ? '#f5f5dc' : 'transparent'
-                      }}
+                      className={`employee-label ${assignedEmployees.some((assigned) => assigned.id === employee.id) ? 'employee-label-selected' : ''}`}
                     >
                       <input
                         type="checkbox"
+                        className="employee-checkbox"
                         checked={assignedEmployees.some((assigned) => assigned.id === employee.id)}
                         onChange={() => handleEmployeeSelection(employee)}
                         disabled={
                           !assignedEmployees.some((assigned) => assigned.id === employee.id) &&
                           assignedEmployees.length >= event.requiredServers
                         }
-                        style={{ accentColor: '#228b22' }}
                       />
-                      <span style={{ fontSize: '0.875rem' }}>
+                      <span className="employee-name">
                         {employee.name} ({employee.role})
                       </span>
                     </label>
                   ))
                 ) : (
-                  <p style={{ color: '#6b7280' }}>No employees available.</p>
+                  <p className="text-gray-500">No employees available.</p>
                 )}
               </div>
-              <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+              <div className="modal-footer">
                 <button
-                  style={{
-                    padding: '0.5rem 1rem',
-                    backgroundColor: '#e5e7eb',
-                    borderRadius: '0.5rem',
-                    cursor: 'pointer'
-                  }}
+                  className="btn-secondary"
                   onClick={() => setModalOpen(false)}
                 >
                   Close
                 </button>
                 <button
-                  style={{
-                    padding: '0.5rem 1rem',
-                    backgroundColor: '#228b22', /* Medium green */
-                    color: 'white',
-                    borderRadius: '0.5rem',
-                    cursor: 'pointer'
-                  }}
+                  className="btn-primary"
                   onClick={() => setModalOpen(false)}
                 >
                   Save
@@ -150,35 +93,101 @@ export default function EventCard({ event, trucks, employees }) {
         )}
       </div>
 
+      {/* New Truck Selection Section */}
+      <div className="event-section">
+        <h4 className="event-subtitle">Required Trucks</h4>
+        <button
+          className="btn-primary"
+          onClick={() => setTruckModalOpen(true)}
+        >
+          Select Trucks
+        </button>
+
+        {truckModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-container">
+              <h3 className="modal-title">
+                Select Trucks
+              </h3>
+              <div className="modal-body">
+                {trucks && trucks.length > 0 ? (
+                  trucks.map((truck) => (
+                    <label
+                      key={truck.id}
+                      className={`employee-label ${assignedTrucks.some((assigned) => assigned.id === truck.id) ? 'employee-label-selected' : ''}`}
+                    >
+                      <input
+                        type="checkbox"
+                        className="employee-checkbox"
+                        checked={assignedTrucks.some((assigned) => assigned.id === truck.id)}
+                        onChange={() => handleTruckSelection(truck)}
+                      />
+                      <span className="employee-name">
+                        {truck.name} ({truck.type})
+                      </span>
+                    </label>
+                  ))
+                ) : (
+                  <p className="text-gray-500">No trucks available.</p>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button
+                  className="btn-secondary"
+                  onClick={() => setTruckModalOpen(false)}
+                >
+                  Close
+                </button>
+                <button
+                  className="btn-primary"
+                  onClick={() => setTruckModalOpen(false)}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
       {assignedEmployees.length > 0 && (
-        <div style={{ marginTop: '1.5rem' }}>
-          <h4 style={{ 
-            fontWeight: 'bold', 
-            marginBottom: '0.5rem',
-            color: '#228b22' /* Medium green */
-          }}>
+        <div className="event-section">
+          <h4 className="event-subtitle">
             Assigned Employees:
           </h4>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+          <div className="assigned-employees-container">
             {assignedEmployees.map((employee) => (
               <div
                 key={employee.id}
-                style={{
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '0.5rem',
-                  padding: '1rem',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                  backgroundColor: '#f5f5dc' /* Secondary light from globals.css */
-                }}
+                className="assigned-employee-card"
               >
-                <h3 style={{ 
-                  fontSize: '1.125rem', 
-                  fontWeight: 'bold',
-                  color: '#006400' /* Dark green */
-                }}>
+                <h3 className="assigned-employee-name">
                   {employee.name}
                 </h3>
-                <p style={{ color: '#2e8b57' /* Primary light green */ }}>Role: {employee.role}</p>
+                <p className="assigned-employee-role">Role: {employee.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Display Selected Trucks */}
+      {assignedTrucks.length > 0 && (
+        <div className="event-section">
+          <h4 className="event-subtitle">
+            Assigned Trucks:
+          </h4>
+          <div className="assigned-employees-container">
+            {assignedTrucks.map((truck) => (
+              <div
+                key={truck.id}
+                className="assigned-employee-card"
+              >
+                <h3 className="assigned-employee-name">
+                  {truck.name}
+                </h3>
+                <p className="assigned-employee-role">Type: {truck.type}</p>
+                <p className="assigned-employee-role">Capacity: {truck.capacity}</p>
               </div>
             ))}
           </div>
