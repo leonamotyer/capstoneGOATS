@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@daypilot/daypilot-lite-react": "^3.32.1",
     "@supabase/supabase-js": "^2.49.1",
     "encoding": "^0.1.13",
     "firebase": "^11.4.0",

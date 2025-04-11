@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "role": "Driver",
+    "email": "alice@example.com",
+    "phone": "555-1234",
+    "wage": 25,
+    "isAvailable": true
+  },
+  {
+    "id": 2,
+    "name": "Bob Smith",
+    "role": "Server",
+    "email": "bob@example.com",
+    "phone": "555-5678",
+    "wage": 20,
+    "isAvailable": false
+  },
+  {
+    "id": 3,
+    "name": "Charlie Brown",
+    "role": "Admin",
+    "email": "charlie@example.com",
+    "phone": "555-9876",
+    "wage": 30,
+    "isAvailable": true
+  },
+  {
+    "id": 4,
+    "name": "Diana Prince",
+    "role": "Driver",
+    "email": "diana@example.com",
+    "phone": "555-4321",
+    "wage": 28,
+    "isAvailable": true
+  },
+  {
+    "id": 5,
+    "name": "Eve Adams",
+    "role": "Server",
+    "email": "eve@example.com",
+    "phone": "555-8765",
+    "wage": 22,
+    "isAvailable": true
+  }
+]
