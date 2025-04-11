@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Neon",
+    "type": "Food Truck",
+    "capacity": 500,
+    "status": "Available",
+    "driver": {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "phone": "555-1234"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Lemonade",
+    "type": "Beverage Truck",
+    "capacity": 300,
+    "status": "In Use",
+    "driver": null
+  },
+  {
+    "id": 3,
+    "name": "Cookie Dough",
+    "type": "Dessert Truck",
+    "capacity": 400,
+    "status": "Available",
+    "driver": {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "phone": "555-5678"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Taco Fiesta",
+    "type": "Mexican Food Truck",
+    "capacity": 600,
+    "status": "Available",
+    "driver": {
+      "id": 3,
+      "name": "Carlos Martinez",
+      "email": "carlos@example.com",
+      "phone": "555-7890"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Burger Bliss",
+    "type": "Burger Truck",
+    "capacity": 450,
+    "status": "In Use",
+    "driver": {
+      "id": 4,
+      "name": "Emma Davis",
+      "email": "emma@example.com",
+      "phone": "555-3456"
+    }
+  }
+]

@@ -1,54 +1,10 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import TruckCard from '../../employees/employeeInfo/truckCard';
 import EmployeeCard from '../../employees/employeeInfo/serverCard';
 
-const renderEventDetails = (event) => (
-  <div className="event-details border rounded-lg p-4 shadow-md bg-gray-100">
-    <h3 className="font-bold text-lg mb-2">{event.name}</h3>
-    <p className="text-sm text-primary-medium">Date: {event.date}</p>
-    <p className="text-sm text-primary-medium">Location: {event.location}</p>
-    <p className="text-sm text-primary-medium">Time: {event.time}</p>
-    <div className="mt-4">
-      <h4 className="font-bold text-md mb-2">Event Contact:</h4>
-      <p className="text-sm text-primary-medium">Name: {event.contact.name}</p>
-      <p className="text-sm text-primary-medium">Phone: {event.contact.phone}</p>
-      <p className="text-sm text-primary-medium">Email: {event.contact.email}</p>
-    </div>
-    <div className="mt-4">
-      <h4 className="font-bold text-md mb-2">Trucks:</h4>
-      {event.trucks.map((truck) => (
-        <TruckCard key={`T-${String(truck.id).padStart(4, '0')}`} truck={truck} viewMode="compact" />
-      ))}
-    </div>
-    <div className="mt-4">
-      <h4 className="font-bold text-md mb-2">Employees:</h4>
-      {event.employees && event.employees.map((employee) => {
-        if (employee.role === 'Driver') {
-          return <DriverCard key={`D-${String(employee.id).padStart(5, '0')}`} driver={employee} />;
-        } else if (employee.role === 'Server') {
-          return <ServerCard key={`S-${String(employee.id).padStart(5, '0')}`} server={employee} />;
-        } else {
-          return (
-            <div key={`A-${String(employee.id).padStart(5, '0')}`} className="admin-card border rounded-lg p-4 shadow-md bg-gray-100">
-              <h3 className="font-bold text-lg mb-2">
-                A-{String(employee.id).padStart(5, '0')}: {employee.name}
-              </h3>
-              <p className="text-sm text-primary-medium">Role: {employee.role}</p>
-              <p className="text-sm text-primary-medium">Email: {employee.email}</p>
-              <p className="text-sm text-primary-medium">Phone: {employee.phone}</p>
-              <p className="text-sm text-primary-medium">Wage: ${employee.wage}/hr</p>
-            </div>
-          );
-        }
-      })}
-    </div>
-  </div>
-);
-
-
-export default function EventCard({ event }) {
+export default function EventCard({ event, trucks }) {
   const [selectedTrucks, setSelectedTrucks] = useState([]);
   const [assignedEmployees, setAssignedEmployees] = useState([]);
 
@@ -75,7 +31,7 @@ export default function EventCard({ event }) {
       <div className="mt-4">
         <h4 className="font-bold mb-2">Available Trucks:</h4>
         <div className="truck-list grid grid-cols-1 md:grid-cols-2 gap-2">
-          {event.trucks.map((truck) => (
+          {trucks.map((truck) => (
             <button
               key={truck.id}
               className={`truck-option border rounded-lg p-2 transition-transform transform hover:scale-105 ${
@@ -106,7 +62,7 @@ export default function EventCard({ event }) {
       <div className="mt-6">
         <h4 className="font-bold mb-2">Available Employees:</h4>
         <div className="employee-list grid grid-cols-1 md:grid-cols-2 gap-2">
-          {event.employees.map((employee) => (
+          {event.employees?.map((employee) => (
             <EmployeeCard
               key={employee.id}
               employee={employee}

@@ -3,53 +3,46 @@
 import { useState, useEffect } from 'react';
 import { DayPilotMonth } from '@daypilot/daypilot-lite-react';
 import EventCard from '../events/eventInfo/eventCard';
-import DriverCard from '../employees/employeeInfo/driverCard';
-import ServerCard from '../employees/employeeInfo/serverCard';
-import TruckCard from '../employees/employeeInfo/truckCard';
 
 export default function Schedule() {
   const [viewMode, setViewMode] = useState('weekly'); // State to toggle between weekly and monthly views
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to track the selected date
   const [events, setEvents] = useState([]); // State to store event data
+  const [trucks, setTrucks] = useState([]); // State to store truck data
 
-  // Fetch event data from JSON file
+  // Fetch events data
   useEffect(() => {
-    fetch('./public/events.json') 
+    fetch('/events.json')
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => {
-        console.log('Fetched events:', data); // Debugging
-        setEvents(data);
-      })
-      .catch((error) => console.error('Error fetching event data:', error));
+      .then((data) => setEvents(data))
+      .catch((error) => console.error('Error fetching events:', error));
   }, []);
 
-  const handleServerChange = (eventId, value) => {
-    setEvents((prevEvents) =>
-      prevEvents.map((event) =>
-        event.id === eventId ? { ...event, requiredServers: value } : event
-      )
-    );
-  };
-  const renderWeeklySchedule = () => {
+  // Fetch trucks data
+  useEffect(() => {
+    fetch('/trucks.json')
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => setTrucks(data))
+      .catch((error) => console.error('Error fetching trucks:', error));
+  }, []);
+
+  // Render weekly schedule
+   const renderWeeklySchedule = () => {
     const currentDate = new Date();
     const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay())); // Start of the week (Sunday)
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6); // End of the week (Saturday)
   
-    console.log('Start of Week:', startOfWeek, 'End of Week:', endOfWeek); // Debugging
-  
     const eventsThisWeek = events.filter((event) => {
-      const eventDate = new Date(event.date); // Parse event date
-      console.log('Event:', event.name, 'Date:', eventDate); // Debugging
+      const eventDate = new Date(event.date);
       return eventDate >= startOfWeek && eventDate <= endOfWeek;
     });
-  
-    console.log('Events This Week:', eventsThisWeek); // Debugging
   
     if (eventsThisWeek.length === 0) {
       return <p className="text-center text-gray-500">No events scheduled for this week.</p>;
@@ -58,13 +51,20 @@ export default function Schedule() {
     return (
       <div className="space-y-6 mt-6">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
-          <div key={day} className="day-column border rounded-lg p-3">
+          <div
+            key={day}
+            className={`day-column border rounded-lg p-3 ${
+              eventsThisWeek.some((event) => new Date(event.date).getDay() === index)
+                ? 'bg-yellow-100' // Add yellow background if the day has events
+                : ''
+            }`}
+          >
             <h3 className="font-bold mb-2">{day}</h3>
             <div className="space-y-2">
               {eventsThisWeek
                 .filter((event) => new Date(event.date).getDay() === index)
                 .map((event) => (
-                  <EventCard key={event.id} event={event} />
+                  <EventCard key={event.id} event={event} trucks={trucks} />
                 ))}
             </div>
           </div>
@@ -72,21 +72,18 @@ export default function Schedule() {
       </div>
     );
   };
+
+  // Render monthly schedule
   const renderMonthlySchedule = () => {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
-  
-    console.log('Current Month:', currentMonth, 'Current Year:', currentYear); // Debugging
-  
+
     const eventsThisMonth = events.filter((event) => {
-      const eventDate = new Date(event.date); // Parse event date
-      console.log('Event Date:', eventDate); // Debugging
+      const eventDate = new Date(event.date);
       return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
     });
-  
-    console.log('Events This Month:', eventsThisMonth); // Debugging
-  
+
     const dayPilotEvents = eventsThisMonth.map((event) => ({
       id: event.id,
       text: event.name,
@@ -94,7 +91,7 @@ export default function Schedule() {
       end: event.date,
       data: event,
     }));
-  
+
     return (
       <div className="mt-6">
         <DayPilotMonth
