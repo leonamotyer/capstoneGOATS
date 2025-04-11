@@ -1,9 +1,20 @@
 [
   {
     "id": 1,
-    "name": "Alysha Krell",
+    "name": "Mamta Verma",
+    "address": "123 Main St, Calgary, AB",
     "role": "Driver",
-    "email": "alice@example.com",
+    "email": "mamta@example.com",
+    "phone": "555-1234",
+    "wage": 20,
+    "isAvailable": true
+  },
+  {
+    "id": 9,
+    "name": "Ali Moussa",
+    "address": "123 Main St, Calgary, AB",
+    "role": "Driver",
+    "email": "ali@example.com",
     "phone": "555-1234",
     "wage": 20,
     "isAvailable": true
@@ -11,8 +22,9 @@
   {
     "id": 2,
     "name": "Leona Motyer",
+    "address": "123 Main St, Calgary, AB",
     "role": "Server",
-    "email": "bob@example.com",
+    "email": "leona@example.com",
     "phone": "555-5678",
     "wage": 40,
     "isAvailable": false
@@ -20,8 +32,9 @@
   {
     "id": 3,
     "name": "Yoohyun Kim",
+    "address": "123 Main St, Calgary, AB",
     "role": "Admin",
-    "email": "charlie@example.com",
+    "email": "kim@example.com",
     "phone": "555-9876",
     "wage": 30,
     "isAvailable": true
@@ -29,8 +42,9 @@
   {
     "id": 4,
     "name": "Chester Laraya",
+    "address": "123 Main St, Calgary, AB",
     "role": "Driver",
-    "email": "diana@example.com",
+    "email": "chester@example.com",
     "phone": "555-4321",
     "wage": 28,
     "isAvailable": true
@@ -38,8 +52,9 @@
   {
     "id": 5,
     "name": "Rudra Pratap",
+    "address": "123 Main St, Calgary, AB",
     "role": "Server",
-    "email": "eve@example.com",
+    "email": "rudra@example.com",
     "phone": "555-8765",
     "wage": 22,
     "isAvailable": true
@@ -47,10 +62,21 @@
   {
     "id": 6,
     "name": "Tehjib Signh",
+    "address": "123 Main St, Calgary, AB",
     "role": "Server",
-    "email": "eve@example.com",
+    "email": "tehjib@example.com",
     "phone": "555-8765",
     "wage": 22,
+    "isAvailable": true
+  },
+  {
+    "id": 7,
+    "name": "Alysha Krell",
+    "address": "123 Main St, Calgary, AB",
+    "role": "Driver",
+    "email": "alysha@example.com",
+    "phone": "555-1234",
+    "wage": 20,
     "isAvailable": true
   }
 ]

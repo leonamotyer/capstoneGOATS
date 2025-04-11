@@ -41,10 +41,10 @@ export default function RootLayout({ children }) {
                 <a href="/schedule/new" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + New Shift
                 </a>
-                <a href="/employees/new" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
+                <a href="/employees/newEmployee" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + Add Staff
                 </a>
-                <a href="/events/new" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
+                <a href="/events" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + Create Event
                 </a>
               </nav>

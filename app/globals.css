@@ -673,3 +673,29 @@ tr:hover td {
   font-size: 1.1rem;
   font-weight: 500;
 }
+
+/* Employee Page Styles */
+.employees-page {
+  padding: 1.5rem;
+}
+
+.employee-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.employee-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.employee-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.employee-card p {
+  margin-bottom: 0.25rem;
+}
