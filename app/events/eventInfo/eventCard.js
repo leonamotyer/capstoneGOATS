@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import TruckCard from '../../employees/employeeInfo/truckCard';
-import EmployeeCard from '../../employees/employeeInfo/serverCard';
 
-export default function EventCard({ event, trucks }) {
+export default function EventCard({ event, trucks, employees }) { // Add employees to the props
   const [selectedTrucks, setSelectedTrucks] = useState([]);
   const [assignedEmployees, setAssignedEmployees] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleTruckSelection = (truck) => {
     if (selectedTrucks.some((selected) => selected.id === truck.id)) {
@@ -16,9 +16,12 @@ export default function EventCard({ event, trucks }) {
     }
   };
 
-  const handleEmployeeAssignment = (employee) => {
-    setAssignedEmployees([...assignedEmployees, employee]);
-    employee.isAvailable = false; // Mark the employee as unavailable
+  const handleEmployeeSelection = (employee) => {
+    if (assignedEmployees.some((assigned) => assigned.id === employee.id)) {
+      setAssignedEmployees(assignedEmployees.filter((assigned) => assigned.id !== employee.id));
+    } else if (assignedEmployees.length < event.requiredServers) {
+      setAssignedEmployees([...assignedEmployees, employee]);
+    }
   };
 
   return (
@@ -28,63 +31,55 @@ export default function EventCard({ event, trucks }) {
       <p className="text-primary-medium mb-2">Location: {event.location}</p>
       <p className="text-primary-medium mb-2">Time: {event.time}</p>
 
-      <div className="mt-4">
-        <h4 className="font-bold mb-2">Available Trucks:</h4>
-        <div className="truck-list grid grid-cols-1 md:grid-cols-2 gap-2">
-          {trucks.map((truck) => (
-            <button
-              key={truck.id}
-              className={`truck-option border rounded-lg p-2 transition-transform transform hover:scale-105 ${
-                selectedTrucks.some((selected) => selected.id === truck.id)
-                  ? 'bg-gradient-to-r from-green-400 to-blue-500 text-white'
-                  : 'bg-gray-100 hover:bg-gray-200'
-              }`}
-              onClick={() => handleTruckSelection(truck)}
-            >
-              <span className="font-bold">{truck.name}</span>
-              <p className="text-xs">{truck.type}</p>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {selectedTrucks.length > 0 && (
-        <div className="selected-trucks mt-6">
-          <h4 className="font-bold mb-2">Selected Trucks:</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {selectedTrucks.map((truck) => (
-              <TruckCard key={truck.id} truck={truck} viewMode="detailed" />
-            ))}
-          </div>
-        </div>
-      )}
-
       <div className="mt-6">
         <h4 className="font-bold mb-2">Available Employees:</h4>
-        <div className="employee-list grid grid-cols-1 md:grid-cols-2 gap-2">
-          {event.employees?.map((employee) => (
-            <EmployeeCard
-              key={employee.id}
-              employee={employee}
-              onAssignToEvent={handleEmployeeAssignment}
-            />
-          ))}
-        </div>
-      </div>
+        <button
+          className="px-4 py-2 border rounded-lg bg-gray-100 hover:bg-gray-200"
+          onClick={() => setModalOpen(true)}
+        >
+          Select Employees
+        </button>
 
-      {assignedEmployees.length > 0 && (
-        <div className="assigned-employees mt-6">
-          <h4 className="font-bold mb-2">Assigned Employees:</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {assignedEmployees.map((employee) => (
-              <div key={employee.id} className="assigned-employee border rounded-lg p-4 shadow-md">
-                <h3 className="text-lg font-bold">{employee.name}</h3>
-                <p className="text-primary-medium">Role: {employee.role}</p>
+        {modalOpen && (
+          <div className="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="modal-content bg-white p-6 rounded-lg shadow-lg w-96">
+              <h3 className="text-lg font-bold mb-4">Select Employees</h3>
+              <div className="employee-list max-h-60 overflow-y-auto">
+                {employees.map((employee) => (
+                  <label key={employee.id} className="flex items-center gap-2 mb-2">
+                    <input
+                      type="checkbox"
+                      checked={assignedEmployees.some((assigned) => assigned.id === employee.id)}
+                      onChange={() => handleEmployeeSelection(employee)}
+                      disabled={
+                        !assignedEmployees.some((assigned) => assigned.id === employee.id) &&
+                        assignedEmployees.length >= event.requiredServers
+                      }
+                    />
+                    <span className="text-sm">
+                      {employee.name} ({employee.role})
+                    </span>
+                  </label>
+                ))}
               </div>
-            ))}
+              <div className="mt-4 flex justify-end gap-2">
+                <button
+                  className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                  onClick={() => setModalOpen(false)}
+                >
+                  Close
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                  onClick={() => setModalOpen(false)}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

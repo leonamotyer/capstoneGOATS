@@ -9,7 +9,7 @@ export default function Schedule() {
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to track the selected date
   const [events, setEvents] = useState([]); // State to store event data
   const [trucks, setTrucks] = useState([]); // State to store truck data
-
+ const [employees, setEmployees] = useState([]); // State to store employee data
   // Fetch events data
   useEffect(() => {
     fetch('/events.json')
@@ -31,6 +31,16 @@ export default function Schedule() {
       .then((data) => setTrucks(data))
       .catch((error) => console.error('Error fetching trucks:', error));
   }, []);
+// Fetch employees data
+  useEffect(() => {
+    fetch('/employee.json')
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => setEmployees(data)) // Correctly update the employees state
+      .catch((error) => console.error('Error fetching employees:', error));
+  }, []);
 
   // Render weekly schedule
    const renderWeeklySchedule = () => {
@@ -48,7 +58,7 @@ export default function Schedule() {
       return <p className="text-center text-gray-500">No events scheduled for this week.</p>;
     }
   
-    return (
+        return (
       <div className="space-y-6 mt-6">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
           <div
@@ -64,7 +74,7 @@ export default function Schedule() {
               {eventsThisWeek
                 .filter((event) => new Date(event.date).getDay() === index)
                 .map((event) => (
-                  <EventCard key={event.id} event={event} trucks={trucks} />
+                  <EventCard key={event.id} event={event} trucks={trucks} employees={employees} />
                 ))}
             </div>
           </div>
