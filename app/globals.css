@@ -667,3 +667,9 @@ tr:hover td {
 .status-unavailable {
   color: #EF4444;
 }
+
+.schedule-subtitle {
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
