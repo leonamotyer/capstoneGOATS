@@ -1,17 +1,17 @@
 'use client';
-
+import '../globals.css';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Import useRouter
+import { useRouter } from 'next/navigation';
 import { DayPilotMonth } from '@daypilot/daypilot-lite-react';
 import EventCard from '../events/eventInfo/eventCard';
 
 export default function Schedule() {
-  const [viewMode, setViewMode] = useState('weekly'); // State to toggle between weekly and monthly views
-  const [selectedDate, setSelectedDate] = useState(new Date()); // State to track the selected date
-  const [events, setEvents] = useState([]); // State to store event data
-  const [trucks, setTrucks] = useState([]); // State to store truck data
-  const [employees, setEmployees] = useState([]); // State to store employee data
-  const router = useRouter(); // Initialize useRouter
+  const [viewMode, setViewMode] = useState('weekly');
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [events, setEvents] = useState([]);
+  const [trucks, setTrucks] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const router = useRouter();
 
   // Fetch events data
   useEffect(() => {
@@ -42,28 +42,27 @@ export default function Schedule() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => setEmployees(data)) // Correctly update the employees state
+      .then((data) => setEmployees(data))
       .catch((error) => console.error('Error fetching employees:', error));
   }, []);
 
-  // Navigate to the previous week or month
+  // Navigation functions
   const handlePrevious = () => {
     const newDate = new Date(selectedDate);
     if (viewMode === 'weekly') {
-      newDate.setDate(newDate.getDate() - 7); // Go back 7 days
+      newDate.setDate(newDate.getDate() - 7);
     } else {
-      newDate.setMonth(newDate.getMonth() - 1); // Go back 1 month
+      newDate.setMonth(newDate.getMonth() - 1);
     }
     setSelectedDate(newDate);
   };
 
-  // Navigate to the next week or month
   const handleNext = () => {
     const newDate = new Date(selectedDate);
     if (viewMode === 'weekly') {
-      newDate.setDate(newDate.getDate() + 7); // Go forward 7 days
+      newDate.setDate(newDate.getDate() + 7);
     } else {
-      newDate.setMonth(newDate.getMonth() + 1); // Go forward 1 month
+      newDate.setMonth(newDate.getMonth() + 1);
     }
     setSelectedDate(newDate);
   };
@@ -71,9 +70,9 @@ export default function Schedule() {
   // Render weekly schedule
   const renderWeeklySchedule = () => {
     const startOfWeek = new Date(selectedDate);
-    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Start of the week (Sunday)
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
     const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(startOfWeek.getDate() + 6); // End of the week (Saturday)
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
 
     const eventsThisWeek = events.filter((event) => {
       const eventDate = new Date(event.date);
@@ -81,30 +80,47 @@ export default function Schedule() {
     });
 
     if (eventsThisWeek.length === 0) {
-      return <p className="text-center text-gray-500">No events scheduled for this week.</p>;
+      return <p style={{ textAlign: 'center', color: '#6B7280', marginTop: '2rem' }}>No events scheduled for this week.</p>;
     }
 
     return (
-      <div className="space-y-6 mt-6">
-        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
-          <div
-            key={day}
-            className={`day-column border rounded-lg p-3 ${
-              eventsThisWeek.some((event) => new Date(event.date).getDay() === index)
-                ? 'bg-yellow-100' // Add yellow background if the day has events
-                : ''
-            }`}
-          >
-            <h3 className="font-bold mb-2">{day}</h3>
-            <div className="space-y-2">
-              {eventsThisWeek
-                .filter((event) => new Date(event.date).getDay() === index)
-                .map((event) => (
-                  <EventCard key={event.id} event={event} trucks={trucks} employees={employees} />
-                ))}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2.25rem', marginTop: '2.25rem' }}>
+        {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, index) => {
+          const hasEvents = eventsThisWeek.some(
+            (event) => new Date(event.date).getDay() === index
+          );
+          
+          return (
+            <div
+              key={day}
+              style={{
+                border: '2px solid #E5E7EB',
+                borderRadius: '0.5rem',
+                padding: '1.5rem',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                backgroundColor: hasEvents ? '#FEF3C7' : 'white',
+              }}
+            >
+              <h3 style={{ 
+                fontSize: '1.5rem', 
+                fontWeight: 'bold', 
+                color: 'darkgreen', 
+                textDecoration: 'underline', 
+                marginBottom: '1rem' 
+              }}>
+                {day}
+              </h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                {eventsThisWeek
+                  .filter((event) => new Date(event.date).getDay() === index)
+                  .map((event) => (
+                    <EventCard key={event.id} event={event} trucks={trucks} employees={employees} />
+                  ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     );
   };
@@ -128,7 +144,7 @@ export default function Schedule() {
     }));
 
     return (
-      <div className="mt-6">
+      <div style={{ marginTop: '1.5rem' }}>
         <DayPilotMonth
           startDate={`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`}
           events={dayPilotEvents}
@@ -137,15 +153,15 @@ export default function Schedule() {
             if (clickedEvent) {
               console.log(`Navigating to: /events/${clickedEvent.id}`);
               router.push(`/events/${clickedEvent.id}`);
-             }  
+            }  
           }}
           onBeforeEventRender={(args) => {
             const event = args.data.data;
             args.html = `
-              <div class="custom-event-card">
-                <h3 class="font-bold">${event.name}</h3>
-                <p class="text-sm">${event.time}</p>
-                <p class="text-xs text-gray-500">${event.location}</p>
+              <div style="padding: 8px; border-radius: 4px;">
+                <h3 style="font-weight: bold; font-size: 16px; color: #1E40AF;">${event.name}</h3>
+                <p style="font-size: 14px;">${event.time}</p>
+                <p style="font-size: 12px; color: #6B7280;">${event.location}</p>
               </div>
             `;
             args.cssClass = "custom-event";
@@ -160,27 +176,37 @@ export default function Schedule() {
   };
 
   return (
-    <div className="data-card">
-      <div className="form-header flex justify-between items-center">
+    <div style={{ padding: '1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <div>
-          <h2 className="text-2xl font-bold">Schedule</h2>
-          <p className="text-primary-medium">
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Schedule</h2>
+          <p style={{ color: '#4B5563' }}>
             {selectedDate.toLocaleString('default', { month: 'long' })} {selectedDate.getFullYear()}
           </p>
         </div>
-        <div className="view-toggle flex gap-2">
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button
-            className={`px-4 py-2 rounded-lg ${
-              viewMode === 'weekly' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '0.5rem',
+              backgroundColor: viewMode === 'weekly' ? '#3B82F6' : '#E5E7EB',
+              color: viewMode === 'weekly' ? 'white' : '#1F2937',
+              border: 'none',
+              cursor: 'pointer',
+            }}
             onClick={() => setViewMode('weekly')}
           >
             Weekly View
           </button>
           <button
-            className={`px-4 py-2 rounded-lg ${
-              viewMode === 'monthly' ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '0.5rem',
+              backgroundColor: viewMode === 'monthly' ? '#3B82F6' : '#E5E7EB',
+              color: viewMode === 'monthly' ? 'white' : '#1F2937',
+              border: 'none',
+              cursor: 'pointer',
+            }}
             onClick={() => setViewMode('monthly')}
           >
             Monthly View
@@ -188,15 +214,29 @@ export default function Schedule() {
         </div>
       </div>
 
-      <div className="navigation-buttons flex justify-between items-center mt-4">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', marginBottom: '1.5rem' }}>
         <button
-          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+          style={{
+            padding: '0.5rem 1rem',
+            backgroundColor: '#E5E7EB',
+            color: '#1F2937',
+            borderRadius: '0.5rem',
+            border: 'none',
+            cursor: 'pointer',
+          }}
           onClick={handlePrevious}
         >
           &larr; Previous
         </button>
         <button
-          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+          style={{
+            padding: '0.5rem 1rem',
+            backgroundColor: '#E5E7EB',
+            color: '#1F2937',
+            borderRadius: '0.5rem',
+            border: 'none',
+            cursor: 'pointer',
+          }}
           onClick={handleNext}
         >
           Next &rarr;
