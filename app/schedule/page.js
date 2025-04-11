@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import { DayPilotMonth } from '@daypilot/daypilot-lite-react';
 import EventCard from '../events/eventInfo/eventCard';
 
@@ -10,6 +11,7 @@ export default function Schedule() {
   const [events, setEvents] = useState([]); // State to store event data
   const [trucks, setTrucks] = useState([]); // State to store truck data
   const [employees, setEmployees] = useState([]); // State to store employee data
+  const router = useRouter(); // Initialize useRouter
 
   // Fetch events data
   useEffect(() => {
@@ -132,7 +134,10 @@ export default function Schedule() {
           events={dayPilotEvents}
           onEventClick={(args) => {
             const clickedEvent = events.find((event) => event.id === args.e.data.id);
-            alert(`Event: ${clickedEvent.name}\nLocation: ${clickedEvent.location}`);
+            if (clickedEvent) {
+              console.log(`Navigating to: /events/${clickedEvent.id}`);
+              router.push(`/events/${clickedEvent.id}`);
+             }  
           }}
           onBeforeEventRender={(args) => {
             const event = args.data.data;
