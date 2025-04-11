@@ -9,7 +9,8 @@ export default function Schedule() {
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to track the selected date
   const [events, setEvents] = useState([]); // State to store event data
   const [trucks, setTrucks] = useState([]); // State to store truck data
- const [employees, setEmployees] = useState([]); // State to store employee data
+  const [employees, setEmployees] = useState([]); // State to store employee data
+
   // Fetch events data
   useEffect(() => {
     fetch('/events.json')
@@ -31,7 +32,8 @@ export default function Schedule() {
       .then((data) => setTrucks(data))
       .catch((error) => console.error('Error fetching trucks:', error));
   }, []);
-// Fetch employees data
+
+  // Fetch employees data
   useEffect(() => {
     fetch('/employee.json')
       .then((response) => {
@@ -42,23 +44,45 @@ export default function Schedule() {
       .catch((error) => console.error('Error fetching employees:', error));
   }, []);
 
+  // Navigate to the previous week or month
+  const handlePrevious = () => {
+    const newDate = new Date(selectedDate);
+    if (viewMode === 'weekly') {
+      newDate.setDate(newDate.getDate() - 7); // Go back 7 days
+    } else {
+      newDate.setMonth(newDate.getMonth() - 1); // Go back 1 month
+    }
+    setSelectedDate(newDate);
+  };
+
+  // Navigate to the next week or month
+  const handleNext = () => {
+    const newDate = new Date(selectedDate);
+    if (viewMode === 'weekly') {
+      newDate.setDate(newDate.getDate() + 7); // Go forward 7 days
+    } else {
+      newDate.setMonth(newDate.getMonth() + 1); // Go forward 1 month
+    }
+    setSelectedDate(newDate);
+  };
+
   // Render weekly schedule
-   const renderWeeklySchedule = () => {
-    const currentDate = new Date();
-    const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay())); // Start of the week (Sunday)
+  const renderWeeklySchedule = () => {
+    const startOfWeek = new Date(selectedDate);
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Start of the week (Sunday)
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6); // End of the week (Saturday)
-  
+
     const eventsThisWeek = events.filter((event) => {
       const eventDate = new Date(event.date);
       return eventDate >= startOfWeek && eventDate <= endOfWeek;
     });
-  
+
     if (eventsThisWeek.length === 0) {
       return <p className="text-center text-gray-500">No events scheduled for this week.</p>;
     }
-  
-        return (
+
+    return (
       <div className="space-y-6 mt-6">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
           <div
@@ -85,9 +109,8 @@ export default function Schedule() {
 
   // Render monthly schedule
   const renderMonthlySchedule = () => {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
+    const currentMonth = selectedDate.getMonth();
+    const currentYear = selectedDate.getFullYear();
 
     const eventsThisMonth = events.filter((event) => {
       const eventDate = new Date(event.date);
@@ -158,6 +181,21 @@ export default function Schedule() {
             Monthly View
           </button>
         </div>
+      </div>
+
+      <div className="navigation-buttons flex justify-between items-center mt-4">
+        <button
+          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+          onClick={handlePrevious}
+        >
+          &larr; Previous
+        </button>
+        <button
+          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+          onClick={handleNext}
+        >
+          Next &rarr;
+        </button>
       </div>
 
       {viewMode === 'weekly' ? renderWeeklySchedule() : renderMonthlySchedule()}
