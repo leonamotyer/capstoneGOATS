@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function EventDetailsPage() {
-  const { id } = useParams(); // Use useParams to get the event ID
+  const { id } = useParams();
   const router = useRouter();
   const [event, setEvent] = useState(null);
 
@@ -30,34 +30,34 @@ export default function EventDetailsPage() {
   }
 
   return (
-    <div className="event-details-page p-6 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen">
+    <div className="event-details-page">
       <button
-        className="mb-6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200 shadow-md"
+        className="back-button"
         onClick={() => router.back()}
       >
         &larr; Back
       </button>
 
-      <div className="event-card border rounded-lg p-8 shadow-lg bg-white max-w-3xl mx-auto">
-        <h1 className="text-3xl font-extrabold text-blue-600 mb-6">{event.name}</h1>
-        <div className="space-y-4">
-          <p className="text-lg text-gray-700">
-            <strong className="font-semibold text-gray-900">Date:</strong> {event.date}
+      <div className="event-detail-card">
+        <h1 className="event-detail-title">{event.name}</h1>
+        <div className="event-detail-info-container">
+          <p className="event-detail-info">
+            <span className="info-label">Date:</span> {event.date}
           </p>
-          <p className="text-lg text-gray-700">
-            <strong className="font-semibold text-gray-900">Location:</strong> {event.location}
+          <p className="event-detail-info">
+            <span className="info-label">Location:</span> {event.location}
           </p>
-          <p className="text-lg text-gray-700">
-            <strong className="font-semibold text-gray-900">Time:</strong> {event.time}
+          <p className="event-detail-info">
+            <span className="info-label">Time:</span> {event.time}
           </p>
-          <p className="text-lg text-gray-700">
-            <strong className="font-semibold text-gray-900">Required Servers:</strong> {event.requiredServers}
+          <p className="event-detail-info">
+            <span className="info-label">Required Servers:</span> {event.requiredServers}
           </p>
-          <p className="text-lg text-gray-700">
-            <strong className="font-semibold text-gray-900">Contact:</strong> {event.contact?.name} (
+          <p className="event-detail-info">
+            <span className="info-label">Contact:</span> {event.contact?.name} (
             <a
               href={`mailto:${event.contact?.email}`}
-              className="text-blue-500 hover:underline"
+              className="info-link"
             >
               {event.contact?.email}
             </a>
@@ -66,37 +66,35 @@ export default function EventDetailsPage() {
         </div>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Trucks Assigned</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="assigned-section">
+        <h2 className="assigned-section-title">Trucks Assigned</h2>
+        <div className="assigned-grid">
           {event.trucks.map((truck) => (
             <div
               key={truck.id}
-              className="truck-card border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition duration-200"
+              className="truck-card"
             >
-              <h3 className="text-xl font-semibold text-blue-600">{truck.name}</h3>
-              <p className="text-gray-700">
-                <strong>Type:</strong> {truck.type}
+              <h3 className="truck-title">{truck.name}</h3>
+              <p className="truck-info">
+                <span className="truck-info-label">Type:</span> {truck.type}
               </p>
-              <p className="text-gray-700">
-                <strong>Capacity:</strong> {truck.capacity}
+              <p className="truck-info">
+                <span className="truck-info-label">Capacity:</span> {truck.capacity}
               </p>
-              <p className="text-gray-700">
-                <strong>Status:</strong>{' '}
+              <p className="truck-info">
+                <span className="truck-info-label">Status:</span>{' '}
                 <span
-                  className={`font-semibold ${
-                    truck.status === 'Available' ? 'text-green-500' : 'text-red-500'
-                  }`}
+                  className={truck.status === 'Available' ? 'status-available' : 'status-unavailable'}
                 >
                   {truck.status}
                 </span>
               </p>
               {truck.driver && (
-                <p className="text-gray-700">
-                  <strong>Driver:</strong> {truck.driver.name} (
+                <p className="truck-info">
+                  <span className="truck-info-label">Driver:</span> {truck.driver.name} (
                   <a
                     href={`mailto:${truck.driver.email}`}
-                    className="text-blue-500 hover:underline"
+                    className="info-link"
                   >
                     {truck.driver.email}
                   </a>

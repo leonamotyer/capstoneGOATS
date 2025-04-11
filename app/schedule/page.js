@@ -46,6 +46,48 @@ export default function Schedule() {
       .catch((error) => console.error('Error fetching employees:', error));
   }, []);
 
+  const getDateRangeText = () => {
+    if (viewMode === 'weekly') {
+      // Calculate start and end of week
+      const startOfWeek = new Date(selectedDate);
+      startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+      
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 6);
+        // Format dates
+        const startFormat = startOfWeek.toLocaleDateString('en-US', { 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        
+        const endFormat = endOfWeek.toLocaleDateString('en-US', { 
+          month: 'long', 
+          day: 'numeric', 
+          year: 'numeric' 
+        });
+        
+        return `${startFormat} - ${endFormat}`;
+      } else {
+        // Monthly view
+        const year = selectedDate.getFullYear();
+        const month = selectedDate.getMonth();
+        
+        // First day of month
+        const firstDay = new Date(year, month, 1).toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        // Last day of month
+        const lastDay = new Date(year, month + 1, 0).toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+        
+        return `${firstDay} - ${lastDay}`;
+      }
+    };
   // Navigation functions
   const handlePrevious = () => {
     const newDate = new Date(selectedDate);
@@ -66,6 +108,11 @@ export default function Schedule() {
     }
     setSelectedDate(newDate);
   };
+  
+
+  const handleToday = () => {
+    setSelectedDate(new Date());
+  };
 
   // Render weekly schedule
   const renderWeeklySchedule = () => {
@@ -80,11 +127,11 @@ export default function Schedule() {
     });
 
     if (eventsThisWeek.length === 0) {
-      return <p style={{ textAlign: 'center', color: '#6B7280', marginTop: '2rem' }}>No events scheduled for this week.</p>;
+      return <p className="empty-week-message">No events scheduled for this week.</p>;
     }
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2.25rem', marginTop: '2.25rem' }}>
+      <div className="weekly-schedule">
         {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, index) => {
           const hasEvents = eventsThisWeek.some(
             (event) => new Date(event.date).getDay() === index
@@ -93,25 +140,13 @@ export default function Schedule() {
           return (
             <div
               key={day}
-              style={{
-                border: '2px solid #E5E7EB',
-                borderRadius: '0.5rem',
-                padding: '1.5rem',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                backgroundColor: hasEvents ? '#FEF3C7' : 'white',
-              }}
+              className={`day-card ${hasEvents ? 'day-card-has-events' : ''}`}
             >
-              <h3 style={{ 
-                fontSize: '1.5rem', 
-                fontWeight: 'bold', 
-                color: 'darkgreen', 
-                textDecoration: 'underline', 
-                marginBottom: '1rem' 
-              }}>
+              <h3 className="day-title">
                 {day}
               </h3>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <div className="day-events-container">
                 {eventsThisWeek
                   .filter((event) => new Date(event.date).getDay() === index)
                   .map((event) => (
@@ -144,7 +179,7 @@ export default function Schedule() {
     }));
 
     return (
-      <div style={{ marginTop: '1.5rem' }}>
+      <div className="monthly-schedule">
         <DayPilotMonth
           startDate={`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`}
           events={dayPilotEvents}
@@ -158,10 +193,10 @@ export default function Schedule() {
           onBeforeEventRender={(args) => {
             const event = args.data.data;
             args.html = `
-              <div style="padding: 8px; border-radius: 4px;">
-                <h3 style="font-weight: bold; font-size: 16px; color: #1E40AF;">${event.name}</h3>
-                <p style="font-size: 14px;">${event.time}</p>
-                <p style="font-size: 12px; color: #6B7280;">${event.location}</p>
+              <div class="custom-event">
+                <h3 class="custom-event-title">${event.name}</h3>
+                <p class="custom-event-time">${event.time}</p>
+                <p class="custom-event-location">${event.location}</p>
               </div>
             `;
             args.cssClass = "custom-event";
@@ -176,37 +211,23 @@ export default function Schedule() {
   };
 
   return (
-    <div style={{ padding: '1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+    <div className="schedule-container">
+      <div className="schedule-header">
         <div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Schedule</h2>
-          <p style={{ color: '#4B5563' }}>
-            {selectedDate.toLocaleString('default', { month: 'long' })} {selectedDate.getFullYear()}
+          <h2 className="schedule-title">Schedule</h2>
+          <p className="schedule-subtitle">
+            {getDateRangeText()}
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className="view-toggle-container">
           <button
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: viewMode === 'weekly' ? '#3B82F6' : '#E5E7EB',
-              color: viewMode === 'weekly' ? 'white' : '#1F2937',
-              border: 'none',
-              cursor: 'pointer',
-            }}
+            className={`view-toggle-button ${viewMode === 'weekly' ? 'view-toggle-button-active' : 'view-toggle-button-inactive'}`}
             onClick={() => setViewMode('weekly')}
           >
             Weekly View
           </button>
           <button
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: viewMode === 'monthly' ? '#3B82F6' : '#E5E7EB',
-              color: viewMode === 'monthly' ? 'white' : '#1F2937',
-              border: 'none',
-              cursor: 'pointer',
-            }}
+            className={`view-toggle-button ${viewMode === 'monthly' ? 'view-toggle-button-active' : 'view-toggle-button-inactive'}`}
             onClick={() => setViewMode('monthly')}
           >
             Monthly View
@@ -214,29 +235,21 @@ export default function Schedule() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', marginBottom: '1.5rem' }}>
+      <div className="navigation-container">
         <button
-          style={{
-            padding: '0.5rem 1rem',
-            backgroundColor: '#E5E7EB',
-            color: '#1F2937',
-            borderRadius: '0.5rem',
-            border: 'none',
-            cursor: 'pointer',
-          }}
+          className="navigation-button"
           onClick={handlePrevious}
         >
           &larr; Previous
         </button>
         <button
-          style={{
-            padding: '0.5rem 1rem',
-            backgroundColor: '#E5E7EB',
-            color: '#1F2937',
-            borderRadius: '0.5rem',
-            border: 'none',
-            cursor: 'pointer',
-          }}
+          className="navigation-button today-button"
+          onClick={handleToday}
+        >
+          Today
+        </button>
+        <button
+          className="navigation-button"
           onClick={handleNext}
         >
           Next &rarr;

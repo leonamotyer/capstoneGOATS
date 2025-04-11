@@ -1,20 +1,20 @@
 [
   {
     "id": 1,
-    "name": "Neon",
+    "name": "Neon Taco",
     "type": "Food Truck",
     "capacity": 500,
     "status": "Available",
     "driver": {
       "id": 1,
-      "name": "Alice Johnson",
+      "name": "Wendy Johnson",
       "email": "alice@example.com",
       "phone": "555-1234"
     }
   },
   {
     "id": 2,
-    "name": "Lemonade",
+    "name": "YYC Lemonade",
     "type": "Beverage Truck",
     "capacity": 300,
     "status": "In Use",
@@ -22,7 +22,7 @@
   },
   {
     "id": 3,
-    "name": "Cookie Dough",
+    "name": "Edmonton Dough",
     "type": "Dessert Truck",
     "capacity": 400,
     "status": "Available",
@@ -35,8 +35,8 @@
   },
   {
     "id": 4,
-    "name": "Taco Fiesta",
-    "type": "Mexican Food Truck",
+    "name": "Burta Burgers",
+    "type": "Food Truck",
     "capacity": 600,
     "status": "Available",
     "driver": {
@@ -48,13 +48,97 @@
   },
   {
     "id": 5,
-    "name": "Burger Bliss",
-    "type": "Burger Truck",
+    "name": "Family Dogs",
+    "type": "Food Truck",
     "capacity": 450,
     "status": "In Use",
     "driver": {
       "id": 4,
-      "name": "Emma Davis",
+      "name": "Slava Davis",
+      "email": "emma@example.com",
+      "phone": "555-3456"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Old Lemonade",
+    "type": "Beverage Truck",
+    "capacity": 300,
+    "status": "In Use",
+    "driver": null
+  },
+  {
+    "id": 7,
+    "name": "White Lemonade",
+    "type": "Beverage Truck",
+    "capacity": 300,
+    "status": "In Use",
+    "driver": null
+  },
+  {
+    "id": 8,
+    "name": "New Lemonade",
+    "type": "Beverage Truck",
+    "capacity": 300,
+    "status": "In Use",
+    "driver": null
+  },
+  {
+    "id": 9,
+    "name": "YYC Cookie Dough",
+    "type": "Dessert Truck",
+    "capacity": 400,
+    "status": "Available",
+    "driver": {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "phone": "555-5678"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Lics Ice Cream",
+    "type": "Dessert Truck",
+    "capacity": 300,
+    "status": "Available",
+    "driver":  null
+  },
+  {
+    "id": 11,
+    "name": "Bear Balls",
+    "type": "Food Truck",
+    "capacity": 450,
+    "status": "In Use",
+    "driver": {
+      "id": 4,
+      "name": "Roberta Davis",
+      "email": "emma@example.com",
+      "phone": "555-3456"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Family Cheesed",
+    "type": "Food Truck",
+    "capacity": 450,
+    "status": "In Use",
+    "driver": {
+      "id": 4,
+      "name": "Slava Davis",
+      "email": "emma@example.com",
+      "phone": "555-3456"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Santa's Sleigh",
+    "type": "Holiday Truck",
+    "capacity": 450,
+    "status": "In Use",
+    "driver": {
+      "id": 4,
+      "name": "Slava Davis",
       "email": "emma@example.com",
       "phone": "555-3456"
     }
