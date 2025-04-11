@@ -1,20 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import TruckCard from '../../employees/employeeInfo/truckCard';
 
-export default function EventCard({ event, trucks, employees }) { // Add employees to the props
-  const [selectedTrucks, setSelectedTrucks] = useState([]);
+export default function EventCard({ event, trucks, employees }) {
   const [assignedEmployees, setAssignedEmployees] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
-  const handleTruckSelection = (truck) => {
-    if (selectedTrucks.some((selected) => selected.id === truck.id)) {
-      setSelectedTrucks(selectedTrucks.filter((selected) => selected.id !== truck.id));
-    } else {
-      setSelectedTrucks([...selectedTrucks, truck]);
-    }
-  };
 
   const handleEmployeeSelection = (employee) => {
     if (assignedEmployees.some((assigned) => assigned.id === employee.id)) {
@@ -34,33 +24,43 @@ export default function EventCard({ event, trucks, employees }) { // Add employe
       <div className="mt-6">
         <h4 className="font-bold mb-2">Available Employees:</h4>
         <button
-          className="px-4 py-2 border rounded-lg bg-gray-100 hover:bg-gray-200"
+          className="px-4 py-2 border rounded-lg bg-blue-500 text-white hover:bg-blue-600"
           onClick={() => setModalOpen(true)}
         >
           Select Employees
         </button>
 
         {modalOpen && (
-          <div className="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div
+            className="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+            style={{ display: modalOpen ? 'flex' : 'none' }}
+          >
             <div className="modal-content bg-white p-6 rounded-lg shadow-lg w-96">
               <h3 className="text-lg font-bold mb-4">Select Employees</h3>
-              <div className="employee-list max-h-60 overflow-y-auto">
-                {employees.map((employee) => (
-                  <label key={employee.id} className="flex items-center gap-2 mb-2">
-                    <input
-                      type="checkbox"
-                      checked={assignedEmployees.some((assigned) => assigned.id === employee.id)}
-                      onChange={() => handleEmployeeSelection(employee)}
-                      disabled={
-                        !assignedEmployees.some((assigned) => assigned.id === employee.id) &&
-                        assignedEmployees.length >= event.requiredServers
-                      }
-                    />
-                    <span className="text-sm">
-                      {employee.name} ({employee.role})
-                    </span>
-                  </label>
-                ))}
+              <div className="employee-list max-h-60 overflow-y-auto border border-gray-200 rounded-lg p-3">
+                {employees.length > 0 ? (
+                  employees.map((employee) => (
+                    <label
+                      key={employee.id}
+                      className="flex items-center gap-2 mb-2 p-2 hover:bg-gray-100 rounded-lg"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={assignedEmployees.some((assigned) => assigned.id === employee.id)}
+                        onChange={() => handleEmployeeSelection(employee)}
+                        disabled={
+                          !assignedEmployees.some((assigned) => assigned.id === employee.id) &&
+                          assignedEmployees.length >= event.requiredServers
+                        }
+                      />
+                      <span className="text-sm">
+                        {employee.name} ({employee.role})
+                      </span>
+                    </label>
+                  ))
+                ) : (
+                  <p className="text-gray-500">No employees available.</p>
+                )}
               </div>
               <div className="mt-4 flex justify-end gap-2">
                 <button
@@ -80,6 +80,23 @@ export default function EventCard({ event, trucks, employees }) { // Add employe
           </div>
         )}
       </div>
+
+      {assignedEmployees.length > 0 && (
+        <div className="assigned-employees mt-6">
+          <h4 className="font-bold mb-2">Assigned Employees:</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {assignedEmployees.map((employee) => (
+              <div
+                key={employee.id}
+                className="assigned-employee border rounded-lg p-4 shadow-md bg-gray-100"
+              >
+                <h3 className="text-lg font-bold">{employee.name}</h3>
+                <p className="text-primary-medium">Role: {employee.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
