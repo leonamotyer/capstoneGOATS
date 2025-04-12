@@ -3,7 +3,7 @@
   --primary-medium: #228b22;
   --primary-light: #4dab76;
   --secondary-dark: #faee7f;
-  --secondary-light: #f5f5dc;
+  --secondary-light: #f5f5cb;
   --shadow: rgba(0, 0, 0, 0.2);
   --white: #ffffff;
 }
@@ -31,6 +31,7 @@ body {
 .text-primary-dark { color: var(--primary-dark); }
 .text-primary-medium { color: var(--primary-medium); }
 .text-primary-light { color: var(--primary-light); }
+.text-secondary-dark {color: var(--secondary-dark);}
 .bg-secondary-dark { background-color: var(--secondary-dark); }
 .bg-primary-medium { background-color: var(--primary-medium); }
 .bg-white { background-color: var(--white); }
@@ -401,7 +402,7 @@ tr:hover td {
   color: var(--white);
 }
 
-.filter-buttons .button.bg-gray-200 {
+.filter-buttons .button.bg-secondary-dark{
   background-color: #e5e7eb; /* Light gray for inactive buttons */
   color: var(--primary-dark);
 }
