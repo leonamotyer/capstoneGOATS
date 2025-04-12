@@ -20,7 +20,7 @@ export default function Events() {
 
   return (
     <div className="events-page">
-      <h2 className="text-2xl mb-4">Event Management</h2>
+      <h2 className="text-2xl text-primary-dark mb-4">Event Management</h2>
       <div className="event-list grid gap-4">
         {events.length > 0 ? (
           events.map((event) => (

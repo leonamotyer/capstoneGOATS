@@ -16,10 +16,9 @@ export default function RootLayout({ children }) {
                   src="/yyctrucks.jpg"
                   alt="YYC Food Trucks Logo"
                   className="rounded-full shadow-sm"
-                  style={{ width: '64px', height: '64px' }} // Explicitly set the size
+                  style={{ width: '64px', height: '64px' }} 
                 />
-                <h1 className="text-lg font-semibold">YYC Food Trucks</h1>
-              </div>
+                <h1 className="text-lg font-semibold">YYC Food Trucks</h1>              </div>
               <nav className="nav-links flex gap-4">
                 <a href="/schedule" className="nav-link flex items-center gap-1 hover:text-yellow-300">
                   <FiCalendar /> Schedule
