@@ -4,9 +4,9 @@
 :root {
   --primary-dark: #006400;
   --primary-medium: #228b22;
-  --primary-light: #4dab76;
+  --primary-light: #67b88a;
   --secondary-dark: #faee7fa6;
-  --secondary-light: #f9f9a9;
+  --secondary-light: #fef3c7;
   --shadow: rgba(0, 0, 0, 0.2);
   --white: #ffffff;
 }
@@ -168,7 +168,7 @@ body {
 
 .landing-subtitle {
   font-size: 1.25rem;
-  color: var(--secondary-dark);
+  color: var(--primary-medium);
   margin-bottom: 2rem;
 }
 
@@ -487,11 +487,11 @@ tr:hover td {
 
 /* Event Card Styles */
 .event-card {
-  border: 1px solid #e5e7eb;
+  border: 1px solid black;
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  background-color: var(--secondary-light);
+  background-color: var(--white);
   margin-bottom: 1rem;
 }
 
@@ -753,7 +753,7 @@ button[title="Edit Employee"]:hover {
 }
 
 .day-card {
-  border: 2px solid #E5E7EB;
+  border: 2px solid black;
   border-radius: 0.5rem;
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -761,7 +761,7 @@ button[title="Edit Employee"]:hover {
 }
 
 .day-card-has-events {
-  background-color: #FEF3C7;
+  background-color: var(--secondary-dark);
 }
 
 .day-title {
@@ -877,7 +877,7 @@ button[title="Edit Employee"]:hover {
 
 .info-label {
   font-weight: 600;
-  color: #111827;
+  color: black;
 }
 
 .info-text {
@@ -901,7 +901,7 @@ button[title="Edit Employee"]:hover {
 .assigned-section-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1F2937;
+  color: var(--primary-dark);
   margin-bottom: 1rem;
 }
 
@@ -973,6 +973,7 @@ button[title="Edit Employee"]:hover {
 
 .employee-card {
   border: 1px solid #e5e7eb;
+  background-color: var(--white);
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
