@@ -5,8 +5,8 @@
   --primary-dark: #006400;
   --primary-medium: #228b22;
   --primary-light: #4dab76;
-  --secondary-dark: #faee7f;
-  --secondary-light: #f5f5cb;
+  --secondary-dark: #faee7fa6;
+  --secondary-light: #f9f9a9;
   --shadow: rgba(0, 0, 0, 0.2);
   --white: #ffffff;
 }
@@ -406,10 +406,11 @@ tr:hover td {
 
 .modal-container {
   background-color: var(--white);
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   width: 24rem;
+  max-width: 90%;
 }
 
 .modal-title {
@@ -455,6 +456,24 @@ tr:hover td {
 .employee-name {
   font-size: 0.875rem;
 }
+.employee-card {
+  position: relative;
+}
+
+button[title="Edit Employee"] {
+    position: absolute; 
+    top: 0.5rem; /* Adjust the vertical position */
+    right: 0.5rem; /* Adjust the horizontal position */
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+button[title="Edit Employee"]:hover {
+  color: var(--primary-medium);
+}
+
 /* Filter Buttons */
 .filter-buttons {
   display: grid;
@@ -642,6 +661,7 @@ tr:hover td {
 .event_pending .month_default_event_bar_inner {
   background-color: var(--secondary-dark) !important; /* Yellow for pending */
 }
+
 .custom-event {
   padding: 8px;
   border-radius: 4px;
@@ -665,7 +685,7 @@ tr:hover td {
 /* ========== Event Details Page Styles ========== */
 .event-details-page {
   padding: 1.5rem;
-  background: var(--secondary-dark);
+  background: var(--secondary-light);
   min-height: 100vh;
 }
 
@@ -821,5 +841,21 @@ tr:hover td {
 
 .employee-card p {
   margin-bottom: 0.25rem;
+}
+
+/* Employee edit page*/
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-medium);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
 }
 

@@ -164,20 +164,33 @@ export default function Schedule() {
   const renderMonthlySchedule = () => {
     const currentMonth = selectedDate.getMonth();
     const currentYear = selectedDate.getFullYear();
-
+  
     const eventsThisMonth = events.filter((event) => {
       const eventDate = new Date(event.date);
       return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
     });
-
-    const dayPilotEvents = eventsThisMonth.map((event) => ({
-      id: event.id,
-      text: event.name,
-      start: event.date,
-      end: event.date,
-      data: event,
-    }));
-
+  
+    const dayPilotEvents = eventsThisMonth.map((event) => {
+      // Determine if the event is pending or scheduled
+      const hasTrucks = event.trucks && event.trucks.length > 0;
+      const hasEnoughStaff = event.assignedStaff && event.assignedStaff.length >= event.requiredServers;
+      
+      // An event is pending if it doesn't have trucks assigned or enough staff
+      const statusClass = hasTrucks && hasEnoughStaff ? 'event_scheduled' : 'event_pending';
+      
+      return {
+        id: event.id,
+        text: event.name,
+        start: event.date,
+        end: event.date,
+        data: {
+          ...event,
+          status: statusClass // Add status to data for display
+        },
+        cssClass: statusClass // Use this class for styling
+      };
+    });
+  
     return (
       <div className="monthly-schedule">
         <DayPilotMonth
@@ -192,14 +205,16 @@ export default function Schedule() {
           }}
           onBeforeEventRender={(args) => {
             const event = args.data.data;
+            const statusText = args.data.cssClass === 'event_pending' ? 'Pending' : 'Scheduled';
+            
             args.html = `
               <div class="custom-event">
                 <h3 class="custom-event-title">${event.name}</h3>
                 <p class="custom-event-time">${event.time}</p>
                 <p class="custom-event-location">${event.location}</p>
+                <p class="custom-event-status">${statusText}</p>
               </div>
             `;
-            args.cssClass = "custom-event";
           }}
           eventHeight={70}
           cellHeight={150}
