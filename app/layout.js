@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
               </nav>
 
               <div className="mt-4 pt-3 border-t border-gray-300">
-                <a href="/logout" className="text-gray-600 hover:text-gray-800 flex items-center gap-1">
+                <a href="/" className="text-gray-600 hover:text-gray-800 flex items-center gap-1">
                   <FiLogOut /> Logout
                 </a>
               </div>
