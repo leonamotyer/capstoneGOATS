@@ -1,13 +1,19 @@
+/* =========================
+   Global Variables
+========================= */
 :root {
   --primary-dark: #006400;
   --primary-medium: #228b22;
   --primary-light: #4dab76;
-  --secondary-dark: #faee7f;
-  --secondary-light: #f5f5cb;
+  --secondary-dark: #faee7fa6;
+  --secondary-light: #f9f9a9;
   --shadow: rgba(0, 0, 0, 0.2);
   --white: #ffffff;
 }
 
+/* =========================
+   Base Styles
+========================= */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -20,22 +26,26 @@ body {
   overflow-x: hidden;
   height: 100%;
   font-family: 'Arial', sans-serif;
+  background-color: #f9fafb;
+  color: #333;
 }
 
-body {
-  background-color: var(--secondary-light);
-  color: var(--primary-light);
-}
-
-/* ========== Utility Classes ========== */
+/* =========================
+   Utility Classes
+========================= */
 .text-primary-dark { color: var(--primary-dark); }
 .text-primary-medium { color: var(--primary-medium); }
 .text-primary-light { color: var(--primary-light); }
-.text-secondary-dark {color: var(--secondary-dark);}
+.text-secondary-dark { color: var(--secondary-dark); }
+.text-gray-500 { color: #6b7280; }
+
 .bg-secondary-dark { background-color: var(--secondary-dark); }
 .bg-primary-medium { background-color: var(--primary-medium); }
 .bg-white { background-color: var(--white); }
 
+/* =========================
+   Reusable Components
+========================= */
 .badge {
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
@@ -46,40 +56,13 @@ body {
   gap: 0.25rem;
 }
 
-.icon-button {
-  padding: 0.5rem;
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
-}
 
-.icon-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
 
-.button {
-  background-color: var(--secondary-dark);
-  color: var(--primary-dark);
-  border: 2px solid var(--primary-medium);
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.button:hover {
-  background-color: var(--primary-medium);
-  color: var(--white);
-  box-shadow: 0 4px 8px var(--shadow);
-  transform: translateY(-2px);
-}
-
-/* ========== Layout Styles ========== */
+/* =========================
+   Layout & Navigation
+========================= */
 .header {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-medium) 100%);
   padding: 1rem 2rem;
   box-shadow: 0 4px 6px var(--shadow);
   position: sticky;
@@ -104,6 +87,40 @@ body {
   gap: 0.75rem;
 }
 
+
+/* =========================
+   Section Styling & Pages
+========================= */
+
+
+/* ========== Landing Page ========== */
+
+
+/* Section Titles */
+.section-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Cards */
+.card {
+  background-color: var(--secondary-light);
+  border: 1px solid #e5e7eb; /* Light gray border */
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+/* Nav Links */
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -111,18 +128,80 @@ body {
 }
 
 .nav-link {
-  color: var(--secondary-light);
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 600;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  font-weight: 600;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 500;
 }
 
 .nav-link:hover {
+  color: var(--primary-medium);
   background: var(--primary-light);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Footer Styling */
+footer {
+  background-color: var(--primary-dark); /* Dark background for contrast */
+  color: var(--primary-light); /* Light text color */
+  padding: 1.5rem 0; /* Add padding to the top and bottom */
+  text-align: center;
+  font-size: 0.875rem; /* Slightly smaller font size */
+  border-top: 1px solid #e5e7eb; /* Subtle border at the top */
+}
+
+footer p {
+  margin: 0; /* Remove default margin */
+}
+
+footer a {
+  color: var(--primary-light); /* Footer links inherit light color */
+  text-decoration: none; /* Remove underline */
+  font-weight: 600; /* Make links bold */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+footer a:hover {
+  color: var(--primary-medium); /* Change color on hover */
+}
+
+/* Grid Layout for Sections */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 1.5rem; /* Space between grid items */
+}
+
+/* Buttons */
+.button {
+  background-color: var(--primary-medium);
+  color: #ffffff;
+  border: 2px solid var(--primary-dark);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button:hover {
+  background-color: var(--primary-light);
+  color: var(--white);
+  box-shadow: 0 4px 8px var(--shadow);
   transform: translateY(-2px);
 }
 
@@ -246,10 +325,6 @@ tr:hover td {
     padding: 1rem;
   }
 
-  .nav-links {
-    display: none;
-  }
-
   .calendar-grid {
     grid-template-columns: 1fr;
   }
@@ -273,7 +348,7 @@ tr:hover td {
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  background-color: var(--white);
+  background-color: var(--secondary-light);
   margin-bottom: 1rem;
 }
 
@@ -331,10 +406,11 @@ tr:hover td {
 
 .modal-container {
   background-color: var(--white);
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   width: 24rem;
+  max-width: 90%;
 }
 
 .modal-title {
@@ -380,6 +456,24 @@ tr:hover td {
 .employee-name {
   font-size: 0.875rem;
 }
+.employee-card {
+  position: relative;
+}
+
+button[title="Edit Employee"] {
+    position: absolute; 
+    top: 0.5rem; /* Adjust the vertical position */
+    right: 0.5rem; /* Adjust the horizontal position */
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+button[title="Edit Employee"]:hover {
+  color: var(--primary-medium);
+}
+
 /* Filter Buttons */
 .filter-buttons {
   display: grid;
@@ -497,6 +591,7 @@ tr:hover td {
   margin-bottom: 1.5rem;
 }
 
+/* Navigation Buttons for weekly view on schedule page */
 .navigation-button {
   padding: 0.5rem 1rem;
   background-color: var(--primary-dark);
@@ -551,7 +646,22 @@ tr:hover td {
   margin-top: 1.5rem;
 }
 
-/* Custom DayPilot Styling */
+/* Custom DayPilot Calendar Styling */
+.month_default_event_bar_inner {
+  background-color: var(--primary-light) !important; /* Green color from your theme */
+  color: var(--secondary-light);
+  border: 1px solid var(--primary-dark) !important;
+}
+
+/* Eventually different colors based on event status */
+.event_scheduled .month_default_event_bar_inner {
+  background-color: var(--primary-medium) !important; /* Green for scheduled */
+}
+
+.event_pending .month_default_event_bar_inner {
+  background-color: var(--secondary-dark) !important; /* Yellow for pending */
+}
+
 .custom-event {
   padding: 8px;
   border-radius: 4px;
@@ -569,20 +679,20 @@ tr:hover td {
 
 .custom-event-location {
   font-size: 12px;
-  color: #6B7280;
+  color: var(--primary-medium);
 }
 
 /* ========== Event Details Page Styles ========== */
 .event-details-page {
   padding: 1.5rem;
-  background: var(--secondary-dark);
+  background: var(--secondary-light);
   min-height: 100vh;
 }
 
 .back-button {
   margin-bottom: 1.5rem;
   padding: 0.5rem 1rem;
-  background-color: var(--primary-light);
+  background-color: var(--primary-dark);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -732,10 +842,20 @@ tr:hover td {
 .employee-card p {
   margin-bottom: 0.25rem;
 }
-.text-primary-medium {
-  color: var(--primary-medium);
+
+/* Employee edit page*/
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
 }
 
-.text-gray-500 {
-  color: #6b7280;
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-medium);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
 }
+

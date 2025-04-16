@@ -24,7 +24,7 @@ export default function Events() {
       <div className="event-list grid gap-4">
         {events.length > 0 ? (
           events.map((event) => (
-            <div key={event.id} className="event-card bg-white p-4 rounded shadow">
+            <div key={event.id} className="event-card bg-secondary-light p-4 rounded shadow">
               <h3 className="text-lg font-semibold">{event.name}</h3>
               <p><strong>Date:</strong> {event.date}</p>
               <p><strong>Time:</strong> {event.time}</p>
@@ -32,9 +32,15 @@ export default function Events() {
               <p><strong>Required Servers:</strong> {event.requiredServers}</p>
               <p>
                 <strong>Status:</strong>{' '}
-                <span className={event.status === 'Scheduled' ? 'text-green-500' : 'text-red-500'}>
-                  {event.status}
-                </span>
+                <span className={
+                (!event.trucks || event.trucks.length === 0 || 
+                !event.assignedStaff || event.assignedStaff.length < event.requiredServers) 
+                  ? 'text-yellow-500' : 'text-green-500'
+              }>
+                {(!event.trucks || event.trucks.length === 0 || 
+                  !event.assignedStaff || event.assignedStaff.length < event.requiredServers) 
+                  ? 'Pending' : 'Scheduled'}
+              </span>
               </p>
               <button
                 className="button mt-2"

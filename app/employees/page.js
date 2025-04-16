@@ -1,10 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Employees() {
   const [employees, setEmployees] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [activeFilter, setActiveFilter] = useState('All'); // Default filter is "All"
+  const router = useRouter();
 
   // Fetch employees from employee.json
   useEffect(() => {
@@ -65,7 +67,16 @@ export default function Employees() {
       <div className="employee-list grid gap-4">
         {filteredEmployees.length > 0 ? (
           filteredEmployees.map((employee) => (
-            <div key={employee.id} className="employee-card bg-white p-4 rounded shadow">
+            <div key={employee.id} className="employee-card bg-white p-4 rounded shadow relative">
+              {/* Edit Button */}
+              <button
+                className="absolute top-2 right-2 text-gray-500 hover:text-primary-medium"
+                onClick={() => router.push(`/employees/${employee.id}`)} 
+                title="Edit Employee"
+              >
+                ✏️
+              </button>
+
               <h3 className="text-lg font-semibold">{employee.name}</h3>
               <p><strong>Role:</strong> {employee.role}</p>
               <p><strong>Address:</strong> {employee.address}</p>
