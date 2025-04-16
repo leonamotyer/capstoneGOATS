@@ -31,9 +31,9 @@ export default function Home() {
 
   const links = [
     { name: "Schedule", href: "/schedule", icon: "📅" },
-    { name: "Calendar", href: "/calendar", icon: "🗓️" },
     { name: "Employees", href: "/employees", icon: "👥" },
     { name: "Events", href: "/events", icon: "🎉" },
+    { name: "Trucks", href: "/trucks", icon: "🚚" },
     { name: "Time-Off", href: "/requests", icon: "🌴" }
   ];
 

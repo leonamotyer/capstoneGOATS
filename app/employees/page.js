@@ -70,7 +70,7 @@ export default function Employees() {
             <div key={employee.id} className="employee-card bg-white p-4 rounded shadow relative">
               {/* Edit Button */}
               <button
-                className="absolute top-2 right-2 text-gray-500 hover:text-primary-medium"
+                className="edit-button"
                 onClick={() => router.push(`/employees/${employee.id}`)} 
                 title="Edit Employee"
               >

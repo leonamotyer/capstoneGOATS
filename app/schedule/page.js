@@ -3,7 +3,7 @@ import '../globals.css';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { DayPilotMonth } from '@daypilot/daypilot-lite-react';
-import EventCard from '../events/eventInfo/eventCard';
+import EventCard from '../infoCards/eventCard';
 
 export default function Schedule() {
   const [viewMode, setViewMode] = useState('weekly');
