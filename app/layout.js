@@ -1,6 +1,8 @@
 import './globals.css';
 import { AuthProvider } from '../Auth/auth-context';
 import { FiCalendar, FiUsers, FiTruck, FiLogOut } from 'react-icons/fi';
+import { GiFoodTruck } from "react-icons/gi";
+
 
 export const metadata = { /* ... */ };
 
@@ -9,25 +11,33 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
-          <header className="header bg-blue-500 text-white py-3 shadow-md">
-            <div className="nav-container flex items-center justify-between px-4">
-              <div className="logo flex items-center gap-3">
+          <header className="header">
+            <div className="nav-container">
+              {/* Logo and Title */}
+              <a href="/" className="logo hover:opacity-90 transition-opacity">
                 <img
                   src="/yyctrucks.jpg"
                   alt="YYC Food Trucks Logo"
-                  className="rounded-full shadow-sm"
-                  style={{ width: '64px', height: '64px' }} 
+                  className="logo-img"
                 />
-                <h1 className="text-lg font-semibold">YYC Food Trucks</h1>              </div>
-              <nav className="nav-links flex gap-4">
-                <a href="/schedule" className="nav-link flex items-center gap-1 hover:text-yellow-300">
-                  <FiCalendar /> Schedule
+                <h1 className="logo-text">
+                  <span className="text-secondary-dark">YYC</span> Food Trucks
+                </h1>
+              </a>
+          
+              {/* Navigation Links */}
+              <nav className="nav-links">
+                <a href="/schedule" className="nav-link">
+                  <FiCalendar className="nav-icon" /> Schedule
                 </a>
-                <a href="/employees" className="nav-link flex items-center gap-1 hover:text-yellow-300">
-                  <FiUsers /> Staff
+                <a href="/employees" className="nav-link">
+                  <FiUsers className="nav-icon" /> Staff
                 </a>
-                <a href="/events" className="nav-link flex items-center gap-1 hover:text-yellow-300">
-                  <FiTruck /> Events
+                <a href="/events" className="nav-link">
+                  <GiFoodTruck className="nav-icon" /> Events
+                </a>
+                <a href="/login" className="nav-link">
+                  <FiLogOut className="nav-icon" /> Login
                 </a>
               </nav>
             </div>
