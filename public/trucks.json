@@ -10,7 +10,8 @@
       "name": "Wendy Johnson",
       "email": "alice@example.com",
       "phone": "555-1234"
-    }
+    },
+    "location": "NE"
   },
   {
     "id": 2,
@@ -18,7 +19,8 @@
     "type": "Beverage Truck",
     "capacity": 300,
     "status": "Unavailable",
-    "driver": null
+    "driver": null,
+    "location": "SE"
   },
   {
     "id": 3,
@@ -31,7 +33,8 @@
       "name": "Bob Smith",
       "email": "bob@example.com",
       "phone": "555-5678"
-    }
+    },
+    "location": "NE"
   },
   {
     "id": 4,
@@ -44,7 +47,8 @@
       "name": "Carlos Martinez",
       "email": "carlos@example.com",
       "phone": "555-7890"
-    }
+    },
+    "location": "SE"
   },
   {
     "id": 5,
@@ -57,7 +61,8 @@
       "name": "Slava Davis",
       "email": "emma@example.com",
       "phone": "555-3456"
-    }
+    },
+    "location": "NE"
   },
   {
     "id": 6,
@@ -65,7 +70,8 @@
     "type": "Beverage Truck",
     "capacity": 300,
     "status": "Unavailable",
-    "driver": null
+    "driver": null,
+    "location": "SE"
   },
   {
     "id": 7,
@@ -73,7 +79,8 @@
     "type": "Beverage Truck",
     "capacity": 300,
     "status": "Unavailable",
-    "driver": null
+    "driver": null,
+    "location": "NE"
   },
   {
     "id": 8,
@@ -81,7 +88,8 @@
     "type": "Beverage Truck",
     "capacity": 300,
     "status": "Unavailable",
-    "driver": null
+    "driver": null,
+    "location": "SE"
   },
   {
     "id": 9,
@@ -94,7 +102,8 @@
       "name": "Bob Smith",
       "email": "bob@example.com",
       "phone": "555-5678"
-    }
+    },
+    "location": "NE"
   },
   {
     "id": 10,
@@ -102,7 +111,8 @@
     "type": "Dessert Truck",
     "capacity": 300,
     "status": "Available",
-    "driver":  null
+    "driver": null,
+    "location": "SE"
   },
   {
     "id": 11,
@@ -115,7 +125,8 @@
       "name": "Roberta Davis",
       "email": "emma@example.com",
       "phone": "555-3456"
-    }
+    },
+    "location": "NE"
   },
   {
     "id": 12,
@@ -128,7 +139,8 @@
       "name": "Slava Davis",
       "email": "emma@example.com",
       "phone": "555-3456"
-    }
+    },
+    "location": "SE"
   },
   {
     "id": 13,
@@ -141,6 +153,7 @@
       "name": "Slava Davis",
       "email": "emma@example.com",
       "phone": "555-3456"
-    }
+    },
+    "location": "NE"
   }
 ]
