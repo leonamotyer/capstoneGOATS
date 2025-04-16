@@ -13,14 +13,14 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         const upcomingEvents = data.filter((event) => new Date(event.date) >= new Date());
-        setEvents(upcomingEvents.slice(0, 5)); // Show only the next 3 events
+        setEvents(upcomingEvents.slice(0, 5)); // Show only the next 5 events
       })
       .catch((error) => console.error('Error fetching events:', error));
   }, []);
 
   // Fetch time-off requests
   useEffect(() => {
-    fetch('/timeOffRequests.json') // Replace with the actual path to your time-off requests data
+    fetch('/timeOffRequests.json')
       .then((response) => response.json())
       .then((data) => {
         const upcomingRequests = data.filter((request) => new Date(request.startDate) >= new Date());
@@ -38,42 +38,36 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <main className="max-w-4xl w-full text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary-dark">
-          YYC Food Trucks
-        </h1>
-        <p className="text-xl mb-8 text-primary-light">
-          Employee scheduling and management system
-        </p>
+    <div className="landing-container">
+      <main className="landing-main">
+        <h1 className="landing-title">YYC Food Trucks</h1>
+        <p className="landing-subtitle">Employee scheduling and management system</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div className="landing-links">
           {links.map((link, index) => (
             <a
               key={index}
               href={link.href}
-              className="bg-secondary-dark text-primary-dark p-4 rounded-lg border-2 border-primary-medium
-                        transition-all duration-300 hover:bg-primary-medium hover:text-white 
-                        hover:shadow-lg flex flex-col items-center"
+              className="landing-link"
               onMouseEnter={() => setHoveredLink(index)}
               onMouseLeave={() => setHoveredLink(null)}
             >
-              <span className="text-3xl mb-2">{link.icon}</span>
-              <span className="text-xl font-semibold">{link.name}</span>
+              <span className="landing-link-icon">{link.icon}</span>
+              <span>{link.name}</span>
             </a>
           ))}
         </div>
 
         {/* Upcoming Events Section */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-primary-dark mb-4">Upcoming Events</h2>
+        <section>
+          <h2 className="section-title">Upcoming Events</h2>
           <div className="grid gap-4">
             {events.length > 0 ? (
               events.map((event, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow">
-                  <h3 className="text-lg font-semibold">{event.name}</h3>
-                  <p><strong>Date:</strong> {event.date}</p>
-                  <p><strong>Location:</strong> {event.location}</p>
+                <div key={index} className="section-card">
+                  <h3 className="section-card-title">{event.name}</h3>
+                  <p className="section-card-text"><strong>Date:</strong> {event.date}</p>
+                  <p className="section-card-text"><strong>Location:</strong> {event.location}</p>
                 </div>
               ))
             ) : (
@@ -84,15 +78,15 @@ export default function Home() {
 
         {/* Time-Off Requests Section */}
         <section>
-          <h2 className="text-2xl font-bold text-primary-dark mb-4">Time-Off Requests</h2>
+          <h2 className="section-title">Time-Off Requests</h2>
           <div className="grid gap-4">
             {timeOffRequests.length > 0 ? (
               timeOffRequests.map((request, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow">
-                  <h3 className="text-lg font-semibold">{request.employeeName}</h3>
-                  <p><strong>Start Date:</strong> {request.startDate}</p>
-                  <p><strong>End Date:</strong> {request.endDate}</p>
-                  <p><strong>Reason:</strong> {request.reason}</p>
+                <div key={index} className="section-card">
+                  <h3 className="section-card-title">{request.employeeName}</h3>
+                  <p className="section-card-text"><strong>Start Date:</strong> {request.startDate}</p>
+                  <p className="section-card-text"><strong>End Date:</strong> {request.endDate}</p>
+                  <p className="section-card-text"><strong>Reason:</strong> {request.reason}</p>
                 </div>
               ))
             ) : (
@@ -101,8 +95,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      
     </div>
   );
 }

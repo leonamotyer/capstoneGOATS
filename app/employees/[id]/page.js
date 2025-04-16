@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function EditEmployeePage() {
-  const { edit } = useParams(); // Use "edit" to match the dynamic route
+  const { id } = useParams(); // Use "id" to match the dynamic route
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -21,12 +21,12 @@ export default function EditEmployeePage() {
 
   // Fetch employee details
   useEffect(() => {
-    if (!edit) return;
+    if (!id) return;
 
     fetch('/employee.json') // Adjust the path if necessary
       .then((response) => response.json())
       .then((data) => {
-        const employeeData = data.find((emp) => emp.id === parseInt(edit));
+        const employeeData = data.find((emp) => emp.id === parseInt(id));
         if (employeeData) {
           setFormData({
             name: employeeData.name || '',
@@ -47,7 +47,7 @@ export default function EditEmployeePage() {
         console.error('Error fetching employee:', error);
         setIsLoading(false);
       });
-  }, [edit]);
+  }, [id]);
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -94,7 +94,7 @@ export default function EditEmployeePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`/employees/${edit}.json`, {
+    fetch(`/employees/${id}.json`, {
       method: 'PUT', // Use PUT or PATCH based on your API
       headers: {
         'Content-Type': 'application/json',
