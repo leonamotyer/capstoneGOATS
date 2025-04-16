@@ -6,7 +6,7 @@
     "role": "Driver",
     "email": "mamta@example.com",
     "phone": "555-1234",
-    "wage": 20,
+    "wage": 40,
     "isAvailable": true,
     "availability": ["Monday", "Wednesday", "Friday"]
 
@@ -18,7 +18,7 @@
     "role": "Driver",
     "email": "ali@example.com",
     "phone": "555-1234",
-    "wage": 20,
+    "wage": 40,
     "isAvailable": true,
     "availability": ["Monday", "Wednesday", "Friday"]
 
@@ -54,7 +54,7 @@
     "role": "Driver",
     "email": "chester@example.com",
     "phone": "555-4321",
-    "wage": 28,
+    "wage": 30,
     "isAvailable": true,
     "availability": ["Tuesday", "Thursday"]
 
@@ -66,7 +66,7 @@
     "role": "Server",
     "email": "rudra@example.com",
     "phone": "555-8765",
-    "wage": 22,
+    "wage": 15,
     "isAvailable": true,
     "availability": ["Tuesday", "Thursday"]
 
@@ -78,7 +78,7 @@
     "role": "Server",
     "email": "tehjib@example.com",
     "phone": "555-8765",
-    "wage": 22,
+    "wage": 15,
     "isAvailable": true,
     "availability": []
   },
@@ -89,7 +89,7 @@
     "role": "Driver",
     "email": "alysha@example.com",
     "phone": "555-1234",
-    "wage": 20,
+    "wage": 25,
     "isAvailable": true,
     "availability": []
   },
@@ -100,7 +100,7 @@
     "role": "Admin",
     "email": "jeremy@example.com",
     "phone": "555-1234",
-    "wage": 20,
+    "wage": 35,
     "isAvailable": true,
     "availability": []
   },
@@ -111,7 +111,7 @@
     "role": "Admin",
     "email": "jen@example.com",
     "phone": "555-1234",
-    "wage": 20,
+    "wage": 39,
     "isAvailable": true,
     "availability": []
   }
