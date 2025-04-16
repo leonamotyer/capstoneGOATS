@@ -1,5 +1,5 @@
 'use client';
-
+import '../../globals.css';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -32,8 +32,8 @@ export default function EventDetailsPage() {
   return (
     <div className="event-details-page">
       <button
-        className="back-button"
-        onClick={() => router.back()}
+        className="button"
+                onClick={() => router.back()}
       >
         &larr; Back
       </button>

@@ -56,6 +56,9 @@ export default function RootLayout({ children }) {
             </aside>
 
             <div className="main-content p-4">{children}</div>
+            <footer className="mt-auto">
+                <p>© 2025 YYC FoodTrucks All rights reserved.</p>
+            </footer>
           </main>
         </AuthProvider>
       </body>

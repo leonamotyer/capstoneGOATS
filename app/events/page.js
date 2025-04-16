@@ -24,7 +24,7 @@ export default function Events() {
       <div className="event-list grid gap-4">
         {events.length > 0 ? (
           events.map((event) => (
-            <div key={event.id} className="event-card bg-white p-4 rounded shadow">
+            <div key={event.id} className="event-card bg-secondary-light p-4 rounded shadow">
               <h3 className="text-lg font-semibold">{event.name}</h3>
               <p><strong>Date:</strong> {event.date}</p>
               <p><strong>Time:</strong> {event.time}</p>
