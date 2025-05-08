@@ -1,0 +1,861 @@
+/* =========================
+   Global Variables
+========================= */
+:root {
+  --primary-dark: #006400;
+  --primary-medium: #228b22;
+  --primary-light: #4dab76;
+  --secondary-dark: #faee7fa6;
+  --secondary-light: #f9f9a9;
+  --shadow: rgba(0, 0, 0, 0.2);
+  --white: #ffffff;
+}
+
+/* =========================
+   Base Styles
+========================= */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+}
+
+/* =========================
+   Utility Classes
+========================= */
+.text-primary-dark { color: var(--primary-dark); }
+.text-primary-medium { color: var(--primary-medium); }
+.text-primary-light { color: var(--primary-light); }
+.text-secondary-dark { color: var(--secondary-dark); }
+.text-gray-500 { color: #6b7280; }
+
+.bg-secondary-dark { background-color: var(--secondary-dark); }
+.bg-primary-medium { background-color: var(--primary-medium); }
+.bg-white { background-color: var(--white); }
+
+/* =========================
+   Reusable Components
+========================= */
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+
+
+/* =========================
+   Layout & Navigation
+========================= */
+.header {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-medium) 100%);
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--secondary-light);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+
+/* =========================
+   Section Styling & Pages
+========================= */
+
+
+/* ========== Landing Page ========== */
+
+
+/* Section Titles */
+.section-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Cards */
+.card {
+  background-color: var(--secondary-light);
+  border: 1px solid #e5e7eb; /* Light gray border */
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 600;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link:hover {
+  color: var(--primary-medium);
+  background: var(--primary-light);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Footer Styling */
+footer {
+  background-color: var(--primary-dark); /* Dark background for contrast */
+  color: var(--primary-light); /* Light text color */
+  padding: 1.5rem 0; /* Add padding to the top and bottom */
+  text-align: center;
+  font-size: 0.875rem; /* Slightly smaller font size */
+  border-top: 1px solid #e5e7eb; /* Subtle border at the top */
+}
+
+footer p {
+  margin: 0; /* Remove default margin */
+}
+
+footer a {
+  color: var(--primary-light); /* Footer links inherit light color */
+  text-decoration: none; /* Remove underline */
+  font-weight: 600; /* Make links bold */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+footer a:hover {
+  color: var(--primary-medium); /* Change color on hover */
+}
+
+/* Grid Layout for Sections */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 1.5rem; /* Space between grid items */
+}
+
+/* Buttons */
+.button {
+  background-color: var(--primary-medium);
+  color: #ffffff;
+  border: 2px solid var(--primary-dark);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button:hover {
+  background-color: var(--primary-light);
+  color: var(--white);
+  box-shadow: 0 4px 8px var(--shadow);
+  transform: translateY(-2px);
+}
+
+/* ========== Dashboard Layout ========== */
+.dashboard-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 250px 1fr;
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sidebar {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px var(--shadow);
+  height: fit-content;
+}
+
+/* ========== Data Components ========== */
+.data-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px var(--shadow);
+  transition: transform 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.data-card:hover {
+  transform: translateY(-4px);
+}
+
+.form-header {
+  border-bottom: 2px solid var(--primary-medium);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* ========== Form Elements ========== */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+input, select, textarea {
+  border: 1px solid var(--primary-medium);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+}
+
+/* ========== Schedule View ========== */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.day-column {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.shift-card {
+  background: var(--secondary-light);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--primary-medium);
+}
+
+/* ========== Table Styles ========== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background-color: var(--primary-medium);
+  color: var(--white);
+  padding: 1rem;
+  text-align: left;
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--secondary-light);
+}
+
+tr:hover td {
+  background-color: rgba(240, 230, 140, 0.1);
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .calendar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* Event Card Styles */
+.event-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary-light);
+  margin-bottom: 1rem;
+}
+
+.event-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: block;
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.event-info {
+  color:var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.event-section {
+  margin-top: 1.5rem;
+}
+
+.event-subtitle {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-medium);
+}
+
+/* Button Styles */
+.btn-primary {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: var(--primary-medium);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background-color: #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 24rem;
+  max-width: 90%;
+}
+
+.modal-title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+}
+
+.modal-body {
+  max-height: 15rem;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.modal-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Employee Selection Styles */
+.employee-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.employee-label-selected {
+  background-color: var(--secondary-light);
+}
+
+.employee-checkbox {
+  accent-color: var(--primary-medium);
+}
+
+.employee-name {
+  font-size: 0.875rem;
+}
+.employee-card {
+  position: relative;
+}
+
+button[title="Edit Employee"] {
+    position: absolute; 
+    top: 0.5rem; /* Adjust the vertical position */
+    right: 0.5rem; /* Adjust the horizontal position */
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+button[title="Edit Employee"]:hover {
+  color: var(--primary-medium);
+}
+
+/* Filter Buttons */
+.filter-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Match employee card size */
+  gap: 1.5rem; /* Space between buttons */
+  margin-bottom: 2rem; /* Add spacing below buttons */
+}
+
+.filter-buttons .button {
+  padding: 1rem; /* Add padding for better spacing */
+  text-align: center;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-buttons .button.bg-primary-dark {
+  background-color: var(--primary-dark); /* Dark green for active button */
+  color: var(--white);
+}
+
+.filter-buttons .button.bg-secondary-dark{
+  background-color: #e5e7eb; /* Light gray for inactive buttons */
+  color: var(--primary-dark);
+}
+
+.filter-buttons .button:hover {
+  background-color: var(--primary-medium); /* Medium green on hover */
+  color: var(--white);
+}
+
+/* Assigned Employee Styles */
+.assigned-employees-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.assigned-employee-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary-light);
+}
+
+.assigned-employee-name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+}
+
+.assigned-employee-role {
+  color: var(--primary-light);
+}
+
+/* Utility Classes */
+.text-gray-500 {
+  color: #6b7280;
+}
+
+/* ========== Schedule Page Styles ========== */
+.schedule-container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.schedule-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+}
+
+.schedule-subtitle {
+  color: #4B5563;
+}
+
+.view-toggle-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-toggle-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.view-toggle-button-active {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.view-toggle-button-inactive {
+  background-color: var(--primary-light);
+  color: #E5E7EB;
+}
+
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Navigation Buttons for weekly view on schedule page */
+.navigation-button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-dark);
+  color:var(--white);
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* Weekly Schedule Styles */
+.weekly-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  margin-top: 2.25rem;
+}
+
+.day-card {
+  border: 2px solid #E5E7EB;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.day-card-has-events {
+  background-color: #FEF3C7;
+}
+
+.day-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+.day-events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.empty-week-message {
+  text-align: center;
+  color: var(--primary-dark);
+  margin-top: 2rem;
+}
+
+/* Monthly Schedule Styles */
+.monthly-schedule {
+  margin-top: 1.5rem;
+}
+
+/* Custom DayPilot Calendar Styling */
+.month_default_event_bar_inner {
+  background-color: var(--primary-light) !important; /* Green color from your theme */
+  color: var(--secondary-light);
+  border: 1px solid var(--primary-dark) !important;
+}
+
+/* Eventually different colors based on event status */
+.event_scheduled .month_default_event_bar_inner {
+  background-color: var(--primary-medium) !important; /* Green for scheduled */
+}
+
+.event_pending .month_default_event_bar_inner {
+  background-color: var(--secondary-dark) !important; /* Yellow for pending */
+}
+
+.custom-event {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.custom-event-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--primary-dark);
+}
+
+.custom-event-time {
+  font-size: 14px;
+}
+
+.custom-event-location {
+  font-size: 12px;
+  color: var(--primary-medium);
+}
+
+/* ========== Event Details Page Styles ========== */
+.event-details-page {
+  padding: 1.5rem;
+  background: var(--secondary-light);
+  min-height: 100vh;
+}
+
+.back-button {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-dark);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.event-detail-card {
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.event-detail-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 1.5rem;
+}
+
+.event-detail-info {
+  margin-bottom: 1rem;
+}
+
+.event-detail-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #111827;
+}
+
+.info-text {
+  font-size: 1.125rem;
+  color: #4B5563;
+}
+
+.info-link {
+  color: #3B82F6;
+  text-decoration: none;
+}
+
+.info-link:hover {
+  text-decoration: underline;
+}
+
+.assigned-section {
+  margin-top: 2rem;
+}
+
+.assigned-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 1rem;
+}
+
+.assigned-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .assigned-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.truck-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.truck-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.truck-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.truck-info {
+  margin-bottom: 0.5rem;
+  color: #4B5563;
+}
+
+.truck-info-label {
+  font-weight: 600;
+}
+
+.status-available {
+  color: #10B981;
+}
+
+.status-unavailable {
+  color: #EF4444;
+}
+
+.schedule-subtitle {
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Employee Page Styles */
+.employees-page {
+  padding: 1.5rem;
+}
+
+.employee-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.employee-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.employee-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.employee-card p {
+  margin-bottom: 0.25rem;
+}
+
+/* Employee edit page*/
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-medium);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
