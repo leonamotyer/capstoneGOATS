@@ -1,5 +1,6 @@
 'use client';
  
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -7,19 +8,20 @@ import { Eye, EyeOff } from 'lucide-react';
  
 export default function LoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState('Admin');
   const [error, setError] = useState('');
+
  
   const handleLogin = (e) => {
     e.preventDefault();
  
-    const validUsername = 'admin';
+    const validUserName = 'admin';
     const validPassword = '1234';
  
-    if (username === validUsername && password === validPassword) {
+    if (userName === validUserName && password === validPassword) {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('role', role);
  
@@ -34,8 +36,8 @@ export default function LoginPage() {
   };
  
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-green-100 via-yellow-100 to-green-200 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-10 space-y-6 border border-gray-100">
+    <div className="w-full min-h-screen flex items-center justify-center px-4 ">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-10 space-y-6 border border-gray-100">
         <div className="flex justify-center">
           <Image
             src="/images/dfe0cb48-d05f-4f02-88be-7302537507d9.jpg"
@@ -46,16 +48,16 @@ export default function LoginPage() {
           />
         </div>
  
-        <h2 className="text-3xl font-bold text-center text-green-800">Login</h2>
+        <h2 className="text-3xl font-bold text-center text-green-800">Log in</h2>
  
         <form onSubmit={handleLogin} className="space-y-5">
-          <div>
+          <div className=''>
             <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-[#f1f9ff]"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-[#f1f9ff]"
               placeholder="Enter your username"
               required
             />
@@ -68,10 +70,11 @@ export default function LoginPage() {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-[#f1f9ff]"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-[#f1f9ff]"
                 placeholder="Enter your password"
                 required
               />
+              
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -79,6 +82,11 @@ export default function LoginPage() {
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
+            </div>
+            <div className="text-end text-sm text-gray-500">
+              <a href="/forgotpassword" className="hover:underline">
+                Forgot your password?
+              </a>
             </div>
           </div>
  
@@ -108,6 +116,8 @@ export default function LoginPage() {
           </div>
  
           {error && <p className="text-red-500 text-center text-sm">{error}</p>}
+
+
  
           <button
             type="submit"
@@ -115,13 +125,17 @@ export default function LoginPage() {
           >
             Login
           </button>
+
+          <div className='flex items-center'>
+            <hr className='w-full border-t-1 border-gray-400 opacity-50'/>
+              <p className='text-sm opacity-50 text-gray-400 mx-1'>or</p>
+            <hr className='w-full border-t-1 border-gray-400 opacity-50'/>
+          </div>
+
+
         </form>
  
-        <div className="text-center text-sm text-gray-500">
-          <a href="/forgotpassword" className="hover:underline">
-            Forgot your password?
-          </a>
-        </div>
+
       </div>
     </div>
   );
