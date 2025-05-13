@@ -28,13 +28,13 @@ export default function RootLayout({ children }: RootLayoutProps): ReactElement 
             <nav className="nav-container">
               <Link href="/" className="logo">
                 <Image
-                  src="/goats-logo.png"
-                  alt="GOATS Logo"
+                  src="/yyctrucks.jpg"
+                  alt="YYC Logo"
                   width={64}
                   height={64}
                   className="logo-img"
                 />
-                <span className="logo-text">GOATS</span>
+                <span className="logo-text">YYC Food Trucks</span>
               </Link>
               <div className="nav-links">
                 <Link href="/employees/" className="nav-link">
@@ -57,10 +57,6 @@ export default function RootLayout({ children }: RootLayoutProps): ReactElement 
                   <span className="nav-icon">➕</span>
                   New Event
                 </Link>
-                <Link href="/" className="nav-link">
-                  <span className="nav-icon">🏠</span>
-                  Home
-                </Link>
               </div>
             </nav>
           </header>
@@ -69,21 +65,21 @@ export default function RootLayout({ children }: RootLayoutProps): ReactElement 
             <aside className="sidebar bg-gray-100 p-3 shadow-md">
               <h3 className="text-md font-semibold mb-3">Quick Actions</h3>
               <nav className="space-y-2">
-                <a href="/schedule/new" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
+                <Link href="/schedule/new" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + New Shift
-                </a>
-                <a href="/employees/newEmployee" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
+                </Link>
+                <Link href="/employees/newEmployee" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + Add Staff
-                </a>
-                <a href="/events/newEvent" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
+                </Link>
+                <Link href="/events/newEvent" className="button w-full text-center bg-blue-500 text-white py-1 rounded-lg hover:bg-blue-600">
                   + Create Event
-                </a>
+                </Link>
               </nav>
 
               <div className="mt-4 pt-3 border-t border-gray-300">
-                <a href="/" className="text-gray-600 hover:text-gray-800 flex items-center gap-1">
+                <Link href="/" className="text-gray-600 hover:text-gray-800 flex items-center gap-1">
                   <FiLogOut /> Logout
-                </a>
+                </Link>
               </div>
             </aside>
 
