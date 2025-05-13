@@ -57,6 +57,10 @@ export default function RootLayout({ children }: RootLayoutProps): ReactElement 
                   <span className="nav-icon">➕</span>
                   New Event
                 </Link>
+                <Link href="/login" className="nav-link">
+                  <span className="nav-icon">🔑</span>
+                  Login
+                </Link>
               </div>
             </nav>
           </header>
