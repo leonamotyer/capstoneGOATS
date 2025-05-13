@@ -1,33 +1,51 @@
 'use client'
-import { useState } from 'react'
+import { useState, FormEvent, ChangeEvent, ReactElement } from 'react'
 import { FiCalendar, FiClock } from 'react-icons/fi'
 
-export default function TimeOff() {
-  const [showModal, setShowModal] = useState(false)
-  const [requests, setRequests] = useState([
+interface TimeOffRequest {
+  date: string;
+  type: string;
+  duration: string;
+  status: 'Approved' | 'Pending' | 'Rejected';
+  reason: string;
+}
+
+interface FormData {
+  date: string;
+  type: string;
+  duration: string;
+  reason: string;
+}
+
+export default function TimeOff(): ReactElement {
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const [requests, setRequests] = useState<TimeOffRequest[]>([
     { date: '2024-11-13', type: 'Sick Leave', duration: 'Full Day', status: 'Approved', reason: 'Flu' },
     { date: '2024-11-15', type: 'Personal', duration: 'Half Day (AM)', status: 'Pending', reason: 'Errand' },
   ])
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     date: '',
     type: 'Vacation',
     duration: 'Full Day',
     reason: '',
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const newRequest = { ...formData, status: 'Pending' }
+    const newRequest: TimeOffRequest = { ...formData, status: 'Pending' }
     setRequests([...requests, newRequest])
     setFormData({ date: '', type: 'Vacation', duration: 'Full Day', reason: '' })
     setShowModal(false)
   }
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }
+
   return (
     <div className="max-w-5xl mx-auto p-6">
-      
-
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">My Time-Off Requests</h2>
         <button
@@ -85,19 +103,21 @@ export default function TimeOff() {
                 <label className="block mb-1 text-sm font-medium">Date</label>
                 <input
                   type="date"
+                  name="date"
                   required
                   className="w-full border p-2 rounded"
                   value={formData.date}
-                  onChange={e => setFormData({ ...formData, date: e.target.value })}
+                  onChange={handleInputChange}
                 />
               </div>
 
               <div>
                 <label className="block mb-1 text-sm font-medium">Type of Leave</label>
                 <select
+                  name="type"
                   className="w-full border p-2 rounded"
                   value={formData.type}
-                  onChange={e => setFormData({ ...formData, type: e.target.value })}
+                  onChange={handleInputChange}
                 >
                   <option>Vacation</option>
                   <option>Sick Leave</option>
@@ -109,9 +129,10 @@ export default function TimeOff() {
               <div>
                 <label className="block mb-1 text-sm font-medium">Duration</label>
                 <select
+                  name="duration"
                   className="w-full border p-2 rounded"
                   value={formData.duration}
-                  onChange={e => setFormData({ ...formData, duration: e.target.value })}
+                  onChange={handleInputChange}
                 >
                   <option>Full Day</option>
                   <option>Half Day (AM)</option>
@@ -122,11 +143,12 @@ export default function TimeOff() {
               <div>
                 <label className="block mb-1 text-sm font-medium">Reason</label>
                 <textarea
+                  name="reason"
                   rows={3}
                   className="w-full border p-2 rounded"
                   placeholder="Optional"
                   value={formData.reason}
-                  onChange={e => setFormData({ ...formData, reason: e.target.value })}
+                  onChange={handleInputChange}
                 />
               </div>
 

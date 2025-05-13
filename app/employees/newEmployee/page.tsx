@@ -1,9 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, ReactElement, ChangeEvent, FormEvent } from 'react';
 
-export default function CreateEmployee() {
-  const [formData, setFormData] = useState({
+interface FormData {
+  name: string;
+  address: string;
+  role: string;
+  email: string;
+  phone: string;
+  wage: string;
+  isAvailable: boolean;
+  availability: string[]; // Array to store selected days of the week
+}
+
+export default function CreateEmployee(): ReactElement {
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     address: '',
     role: '',
@@ -16,15 +27,16 @@ export default function CreateEmployee() {
 
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
   };
 
-  const handleDaySelection = (day) => {
+  const handleDaySelection = (day: string): void => {
     if (formData.availability.includes(day)) {
       // Remove day if already selected
       setFormData({
@@ -40,7 +52,7 @@ export default function CreateEmployee() {
     }
   };
 
-  const handleSelectAll = (e) => {
+  const handleSelectAll = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.checked) {
       // Select all days
       setFormData({
@@ -56,7 +68,7 @@ export default function CreateEmployee() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log('Employee Created:', formData);
     // Add logic to save the employee data (e.g., POST request to an API)

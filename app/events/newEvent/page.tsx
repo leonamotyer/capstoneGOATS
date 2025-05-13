@@ -1,9 +1,28 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement, ChangeEvent, FormEvent } from 'react';
 
-export default function AddEventPage() {
-  const [formData, setFormData] = useState({
+interface Truck {
+  id: string;
+  name: string;
+  type: string;
+  isAvailable: boolean;
+}
+
+interface FormData {
+  name: string;
+  date: string;
+  time: string;
+  location: string;
+  requiredServers: string;
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
+  trucks: string[];
+}
+
+export default function AddEventPage(): ReactElement {
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     date: '',
     time: '',
@@ -15,7 +34,7 @@ export default function AddEventPage() {
     trucks: [], // Array to store selected trucks
   });
 
-  const [trucks, setTrucks] = useState([]); // State to store truck data
+  const [trucks, setTrucks] = useState<Truck[]>([]); // State to store truck data
 
   // Fetch truck data from trucks.json
   useEffect(() => {
@@ -24,11 +43,11 @@ export default function AddEventPage() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => setTrucks(data))
+      .then((data: Truck[]) => setTrucks(data))
       .catch((error) => console.error('Error fetching trucks:', error));
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -36,7 +55,7 @@ export default function AddEventPage() {
     });
   };
 
-  const handleTruckSelection = (truckId) => {
+  const handleTruckSelection = (truckId: string): void => {
     if (formData.trucks.includes(truckId)) {
       // Remove truck if already selected
       setFormData({
@@ -52,7 +71,7 @@ export default function AddEventPage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log('Event Created:', formData);
     // Add logic to save the event data (e.g., POST request to an API)

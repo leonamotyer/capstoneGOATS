@@ -1,17 +1,36 @@
 "use client";
 import './globals.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 
-export default function Home() {
-  const [hoveredLink, setHoveredLink] = useState(null);
-  const [events, setEvents] = useState([]);
-  const [timeOffRequests, setTimeOffRequests] = useState([]);
+interface Event {
+  name: string;
+  date: string;
+  location: string;
+}
+
+interface TimeOffRequest {
+  employeeName: string;
+  startDate: string;
+  endDate: string;
+  reason: string;
+}
+
+interface Link {
+  name: string;
+  href: string;
+  icon: string;
+}
+
+export default function Home(): ReactElement {
+  const [hoveredLink, setHoveredLink] = useState<number | null>(null);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [timeOffRequests, setTimeOffRequests] = useState<TimeOffRequest[]>([]);
 
   // Fetch upcoming events
   useEffect(() => {
     fetch('/events.json')
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: Event[]) => {
         const upcomingEvents = data.filter((event) => new Date(event.date) >= new Date());
         setEvents(upcomingEvents.slice(0, 5)); // Show only the next 5 events
       })
@@ -22,14 +41,14 @@ export default function Home() {
   useEffect(() => {
     fetch('/timeOffRequests.json')
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: TimeOffRequest[]) => {
         const upcomingRequests = data.filter((request) => new Date(request.startDate) >= new Date());
         setTimeOffRequests(upcomingRequests.slice(0, 3)); // Show only the next 3 requests
       })
       .catch((error) => console.error('Error fetching time-off requests:', error));
   }, []);
 
-  const links = [
+  const links: Link[] = [
     { name: "Schedule", href: "/schedule", icon: "📅" },
     { name: "Employees", href: "/employees", icon: "👥" },
     { name: "Events", href: "/events", icon: "🎉" },

@@ -1,20 +1,43 @@
 'use client';
 import '../../globals.css';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactElement } from 'react';
 
-export default function EventDetailsPage() {
+interface Event {
+  id: number;
+  name: string;
+  date: string;
+  time: string;
+  location: string;
+  requiredServers: number;
+  trucks?: number[];
+  assignedStaff?: number[];
+}
+
+interface Employee {
+  id: number;
+  name: string;
+  role: string;
+}
+
+interface Truck {
+  id: number;
+  name: string;
+  type: string;
+}
+
+export default function EventDetailsPage(): ReactElement {
   const { id } = useParams();
   const router = useRouter();
-  const [event, setEvent] = useState(null);
-  const [employees, setEmployees] = useState([]); // List of employees
-  const [trucks, setTrucks] = useState([]); // List of trucks
-  const [assignedEmployees, setAssignedEmployees] = useState([]);
-  const [assignedTrucks, setAssignedTrucks] = useState([]);
-  const [isEmployeeModalOpen, setEmployeeModalOpen] = useState(false);
-  const [isTruckModalOpen, setTruckModalOpen] = useState(false);
-  const [isLoadingEmployees, setIsLoadingEmployees] = useState(true);
-  const [isLoadingTrucks, setIsLoadingTrucks] = useState(true);
+  const [event, setEvent] = useState<Event | null>(null);
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [trucks, setTrucks] = useState<Truck[]>([]);
+  const [assignedEmployees, setAssignedEmployees] = useState<Employee[]>([]);
+  const [assignedTrucks, setAssignedTrucks] = useState<Truck[]>([]);
+  const [isEmployeeModalOpen, setEmployeeModalOpen] = useState<boolean>(false);
+  const [isTruckModalOpen, setTruckModalOpen] = useState<boolean>(false);
+  const [isLoadingEmployees, setIsLoadingEmployees] = useState<boolean>(true);
+  const [isLoadingTrucks, setIsLoadingTrucks] = useState<boolean>(true);
 
   // Fetch event details
   useEffect(() => {
@@ -22,18 +45,18 @@ export default function EventDetailsPage() {
 
     fetch('/events.json')
       .then((response) => response.json())
-      .then((data) => {
-        const eventData = data.find((event) => event.id === parseInt(id));
-        setEvent(eventData);
+      .then((data: Event[]) => {
+        const eventData = data.find((event) => event.id === parseInt(id as string));
+        setEvent(eventData || null);
       })
       .catch((error) => console.error('Error fetching event:', error));
   }, [id]);
 
   // Fetch employees and trucks
   useEffect(() => {
-    fetch('/employee.json') 
+    fetch('/employee.json')
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: Employee[]) => {
         setEmployees(data);
         setIsLoadingEmployees(false);
       })
@@ -44,7 +67,7 @@ export default function EventDetailsPage() {
 
     fetch('/trucks.json')
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: Truck[]) => {
         setTrucks(data);
         setIsLoadingTrucks(false);
       })
@@ -54,15 +77,15 @@ export default function EventDetailsPage() {
       });
   }, []);
 
-  const handleEmployeeSelection = (employee) => {
+  const handleEmployeeSelection = (employee: Employee) => {
     if (assignedEmployees.some((e) => e.id === employee.id)) {
       setAssignedEmployees(assignedEmployees.filter((e) => e.id !== employee.id));
-    } else if (assignedEmployees.length < event.requiredServers) {
+    } else if (event && assignedEmployees.length < event.requiredServers) {
       setAssignedEmployees([...assignedEmployees, employee]);
     }
   };
 
-  const handleTruckSelection = (truck) => {
+  const handleTruckSelection = (truck: Truck) => {
     if (assignedTrucks.some((t) => t.id === truck.id)) {
       setAssignedTrucks(assignedTrucks.filter((t) => t.id !== truck.id));
     } else {
@@ -253,7 +276,6 @@ export default function EventDetailsPage() {
               >
                 <h3 className="truck-title">{truck.name}</h3>
                 <p className="truck-info">Type: {truck.type}</p>
-                <p className="truck-info">Capacity: {truck.capacity}</p>
               </div>
             ))}
           </div>

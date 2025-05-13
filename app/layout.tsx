@@ -2,11 +2,19 @@ import './globals.css';
 import { AuthProvider } from '../Auth/auth-context';
 import { FiCalendar, FiUsers, FiTruck, FiLogOut } from 'react-icons/fi';
 import { GiFoodTruck } from "react-icons/gi";
+import { ReactNode, ReactElement } from 'react';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'YYC Food Trucks',
+  description: 'Employee scheduling and management system',
+};
 
-export const metadata = { /* ... */ };
+interface RootLayoutProps {
+  children: ReactNode;
+}
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: RootLayoutProps): ReactElement {
   return (
     <html lang="en">
       <body>

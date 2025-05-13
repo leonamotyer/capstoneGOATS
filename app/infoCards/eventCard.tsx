@@ -1,14 +1,44 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 
-export default function EventCard({ event, trucks, employees }) {
-  const [assignedEmployees, setAssignedEmployees] = useState([]);
-  const [assignedTrucks, setAssignedTrucks] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [truckModalOpen, setTruckModalOpen] = useState(false);
+interface Event {
+  id: string;
+  name: string;
+  date: string;
+  time: string;
+  location: string;
+  requiredServers: number;
+  trucks?: string[];
+  assignedStaff?: string[];
+}
 
-  const handleEmployeeSelection = (employee) => {
+interface Employee {
+  id: string;
+  name: string;
+  role: string;
+}
+
+interface Truck {
+  id: string;
+  name: string;
+  type: string;
+  capacity: string;
+}
+
+interface EventCardProps {
+  event: Event;
+  trucks: Truck[];
+  employees: Employee[];
+}
+
+export default function EventCard({ event, trucks, employees }: EventCardProps): ReactElement {
+  const [assignedEmployees, setAssignedEmployees] = useState<Employee[]>([]);
+  const [assignedTrucks, setAssignedTrucks] = useState<Truck[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [truckModalOpen, setTruckModalOpen] = useState<boolean>(false);
+
+  const handleEmployeeSelection = (employee: Employee): void => {
     if (assignedEmployees.some((assigned) => assigned.id === employee.id)) {
       setAssignedEmployees(assignedEmployees.filter((assigned) => assigned.id !== employee.id));
     } else if (assignedEmployees.length < event.requiredServers) {
@@ -16,7 +46,7 @@ export default function EventCard({ event, trucks, employees }) {
     }
   };
 
-  const handleTruckSelection = (truck) => {
+  const handleTruckSelection = (truck: Truck): void => {
     if (assignedTrucks.some((assigned) => assigned.id === truck.id)) {
       setAssignedTrucks(assignedTrucks.filter((assigned) => assigned.id !== truck.id));
     } else {

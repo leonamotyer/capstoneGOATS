@@ -1,9 +1,36 @@
 'use client';
 
-import React from 'react';
+import React, { ReactElement } from 'react';
+
+interface Driver {
+  id: string | number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+interface Truck {
+  id: string | number;
+  name: string;
+  type: string;
+  capacity: number;
+  location: string;
+  status: 'Available' | 'In Use';
+  driver: Driver | null;
+}
+
+interface TruckCardProps {
+  truck: Truck;
+  viewMode: 'compact' | 'detailed';
+}
+
+interface TruckListProps {
+  trucks: Truck[];
+  viewMode: 'compact' | 'detailed';
+}
 
 // TruckCard component with two display modes: compact and detailed
-export default function TruckCard({ truck, viewMode }) {
+export default function TruckCard({ truck, viewMode }: TruckCardProps): ReactElement {
   return (
     <div
       className={`truck-card ${
@@ -47,7 +74,7 @@ export default function TruckCard({ truck, viewMode }) {
 }
 
 // Example usage of TruckCard
-export function TruckList({ trucks, viewMode }) {
+export function TruckList({ trucks, viewMode }: TruckListProps): ReactElement {
   return (
     <div
       className={`truck-list ${
@@ -64,7 +91,7 @@ export function TruckList({ trucks, viewMode }) {
 }
 
 // Example data for testing
-const exampleTrucks = [
+const exampleTrucks: Truck[] = [
   {
     id: 1,
     name: 'Neon',

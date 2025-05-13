@@ -1,12 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function Trucks() {
-  const [trucks, setTrucks] = useState([]);
-  const [filteredTrucks, setFilteredTrucks] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('All'); // Default filter is "All"
+interface Truck {
+  id: number;
+  name: string;
+  type: string;
+  capacity: string;
+  status: string;
+  driver?: {
+    name: string;
+  };
+  location: string;
+}
+
+export default function Trucks(): ReactElement {
+  const [trucks, setTrucks] = useState<Truck[]>([]);
+  const [filteredTrucks, setFilteredTrucks] = useState<Truck[]>([]);
+  const [activeFilter, setActiveFilter] = useState<string>('All');
   const router = useRouter();
 
   // Fetch trucks from trucks.json
@@ -16,9 +28,9 @@ export default function Trucks() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => {
+      .then((data: Truck[]) => {
         setTrucks(data);
-        setFilteredTrucks(data); // Initially show all trucks
+        setFilteredTrucks(data);
       })
       .catch((error) => console.error('Error fetching trucks:', error));
   }, []);

@@ -1,14 +1,44 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent, ReactElement } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
-export default function EditTruckPage() {
-  const { id } = useParams(); // Get truck ID from the dynamic route
+interface Truck {
+  id: number;
+  name: string;
+  type: string;
+  capacity: string;
+  status: string;
+  driver?: {
+    name: string;
+  };
+  location: string;
+}
+
+interface Event {
+  id: number;
+  name: string;
+  date: string;
+  location: string;
+  time: string;
+  trucks?: number[];
+}
+
+interface FormData {
+  name: string;
+  type: string;
+  capacity: string;
+  status: string;
+  driver: string;
+  location: string;
+}
+
+export default function EditTruckPage(): ReactElement {
+  const { id } = useParams();
   const router = useRouter();
-  const [truck, setTruck] = useState(null);
-  const [events, setEvents] = useState([]);
-  const [formData, setFormData] = useState({
+  const [truck, setTruck] = useState<Truck | null>(null);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     type: '',
     capacity: '',
@@ -21,8 +51,8 @@ export default function EditTruckPage() {
   useEffect(() => {
     fetch('/trucks.json')
       .then((response) => response.json())
-      .then((data) => {
-        const truckData = data.find((t) => t.id === parseInt(id));
+      .then((data: Truck[]) => {
+        const truckData = data.find((t) => t.id === parseInt(id as string));
         if (truckData) {
           setTruck(truckData);
           setFormData({
@@ -44,15 +74,15 @@ export default function EditTruckPage() {
   useEffect(() => {
     fetch('/events.json')
       .then((response) => response.json())
-      .then((data) => {
-        const truckEvents = data.filter((event) => event.trucks && event.trucks.includes(parseInt(id)));
+      .then((data: Event[]) => {
+        const truckEvents = data.filter((event) => event.trucks && event.trucks.includes(parseInt(id as string)));
         setEvents(truckEvents);
       })
       .catch((error) => console.error('Error fetching events:', error));
   }, [id]);
 
   // Handle form input changes
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -61,13 +91,13 @@ export default function EditTruckPage() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Simulate saving the updated truck data
     console.log('Updated Truck Data:', formData);
     alert('Truck information updated successfully!');
-    router.push('/trucks'); // Redirect to the trucks list page
+    router.push('/trucks');
   };
 
   if (!truck) {
