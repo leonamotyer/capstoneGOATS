@@ -1,8 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-export default function DriverCard({ driver }) {
+interface Driver {
+  id: string | number;
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  wage: number;
+  isAvailable: boolean;
+}
+
+interface DriverCardProps {
+  driver: Driver;
+}
+
+export default function DriverCard({ driver }: DriverCardProps): ReactElement {
   return (
     <div className="driver-card border rounded-lg p-4 shadow-md bg-gray-100">
       <h3 className="font-bold text-lg mb-2">

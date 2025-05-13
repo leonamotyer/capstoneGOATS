@@ -1,12 +1,35 @@
 'use client';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent, ChangeEvent, ReactElement } from 'react';
 
-export default function EditEmployeePage() {
-  const { id } = useParams(); // Use "id" to match the dynamic route
+interface Employee {
+  id: number;
+  name: string;
+  address: string;
+  role: string;
+  email: string;
+  phone: string;
+  wage: string;
+  isAvailable: boolean;
+  availability: string[];
+}
+
+interface FormData {
+  name: string;
+  address: string;
+  role: string;
+  email: string;
+  phone: string;
+  wage: string;
+  isAvailable: boolean;
+  availability: string[];
+}
+
+export default function EditEmployeePage(): ReactElement {
+  const { id } = useParams();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [formData, setFormData] = useState({
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     address: '',
     role: '',
@@ -23,10 +46,10 @@ export default function EditEmployeePage() {
   useEffect(() => {
     if (!id) return;
 
-    fetch('/employee.json') // Adjust the path if necessary
+    fetch('/employee.json')
       .then((response) => response.json())
-      .then((data) => {
-        const employeeData = data.find((emp) => emp.id === parseInt(id));
+      .then((data: Employee[]) => {
+        const employeeData = data.find((emp) => emp.id === parseInt(id as string));
         if (employeeData) {
           setFormData({
             name: employeeData.name || '',
@@ -50,15 +73,16 @@ export default function EditEmployeePage() {
   }, [id]);
 
   // Handle form input changes
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
   };
 
-  const handleDaySelection = (day) => {
+  const handleDaySelection = (day: string) => {
     if (formData.availability.includes(day)) {
       // Remove day if already selected
       setFormData({
@@ -74,7 +98,7 @@ export default function EditEmployeePage() {
     }
   };
 
-  const handleSelectAll = (e) => {
+  const handleSelectAll = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       // Select all days
       setFormData({
@@ -91,11 +115,11 @@ export default function EditEmployeePage() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     fetch(`/employees/${id}.json`, {
-      method: 'PUT', // Use PUT or PATCH based on your API
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -104,7 +128,7 @@ export default function EditEmployeePage() {
       .then((response) => {
         if (response.ok) {
           alert('Employee updated successfully!');
-          router.push('/employees'); // Redirect to the employees list page
+          router.push('/employees');
         } else {
           alert('Failed to update employee.');
         }

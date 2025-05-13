@@ -5,12 +5,47 @@ import { useRouter } from 'next/navigation';
 import { DayPilotMonth } from '@daypilot/daypilot-lite-react';
 import EventCard from '../infoCards/eventCard';
 
-export default function Schedule() {
-  const [viewMode, setViewMode] = useState('weekly');
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [events, setEvents] = useState([]);
-  const [trucks, setTrucks] = useState([]);
-  const [employees, setEmployees] = useState([]);
+// Define interfaces for data types
+interface Event {
+  id: string;
+  name: string;
+  date: string;
+  time: string;
+  location: string;
+  trucks?: string[];
+  assignedStaff?: string[];
+  requiredServers: number;
+}
+
+interface Truck {
+  id: string;
+  name: string;
+  type: string;
+  capacity: string;
+}
+
+interface Employee {
+  id: string;
+  name: string;
+  role: string;
+}
+
+// For DayPilot events
+interface DayPilotEvent {
+  id: string;
+  text: string;
+  start: string;
+  end: string;
+  data: Event & { status: string };
+  cssClass: string;
+}
+
+export default function Schedule(): React.ReactElement {
+  const [viewMode, setViewMode] = useState<'weekly' | 'monthly'>('weekly');
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [events, setEvents] = useState<Event[]>([]);
+  const [trucks, setTrucks] = useState<Truck[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const router = useRouter();
 
   // Fetch events data
@@ -20,7 +55,7 @@ export default function Schedule() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => setEvents(data))
+      .then((data: Event[]) => setEvents(data))
       .catch((error) => console.error('Error fetching events:', error));
   }, []);
 
@@ -31,7 +66,7 @@ export default function Schedule() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => setTrucks(data))
+      .then((data: Truck[]) => setTrucks(data))
       .catch((error) => console.error('Error fetching trucks:', error));
   }, []);
 
@@ -42,11 +77,11 @@ export default function Schedule() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => setEmployees(data))
+      .then((data: Employee[]) => setEmployees(data))
       .catch((error) => console.error('Error fetching employees:', error));
   }, []);
 
-  const getDateRangeText = () => {
+  const getDateRangeText = (): string => {
     if (viewMode === 'weekly') {
       // Calculate start and end of week
       const startOfWeek = new Date(selectedDate);
@@ -89,7 +124,7 @@ export default function Schedule() {
       }
     };
   // Navigation functions
-  const handlePrevious = () => {
+  const handlePrevious = (): void => {
     const newDate = new Date(selectedDate);
     if (viewMode === 'weekly') {
       newDate.setDate(newDate.getDate() - 7);
@@ -99,7 +134,7 @@ export default function Schedule() {
     setSelectedDate(newDate);
   };
 
-  const handleNext = () => {
+  const handleNext = (): void => {
     const newDate = new Date(selectedDate);
     if (viewMode === 'weekly') {
       newDate.setDate(newDate.getDate() + 7);
@@ -109,13 +144,12 @@ export default function Schedule() {
     setSelectedDate(newDate);
   };
   
-
-  const handleToday = () => {
+  const handleToday = (): void => {
     setSelectedDate(new Date());
   };
 
   // Render weekly schedule
-  const renderWeeklySchedule = () => {
+  const renderWeeklySchedule = (): React.ReactElement => {
     const startOfWeek = new Date(selectedDate);
     startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
     const endOfWeek = new Date(startOfWeek);
@@ -161,7 +195,7 @@ export default function Schedule() {
   };
 
   // Render monthly schedule
-  const renderMonthlySchedule = () => {
+  const renderMonthlySchedule = (): React.ReactElement => {
     const currentMonth = selectedDate.getMonth();
     const currentYear = selectedDate.getFullYear();
   
@@ -170,7 +204,7 @@ export default function Schedule() {
       return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
     });
   
-    const dayPilotEvents = eventsThisMonth.map((event) => {
+    const dayPilotEvents: DayPilotEvent[] = eventsThisMonth.map((event) => {
       // Determine if the event is pending or scheduled
       const hasTrucks = event.trucks && event.trucks.length > 0;
       const hasEnoughStaff = event.assignedStaff && event.assignedStaff.length >= event.requiredServers;
@@ -185,9 +219,9 @@ export default function Schedule() {
         end: event.date,
         data: {
           ...event,
-          status: statusClass // Add status to data for display
+          status: statusClass
         },
-        cssClass: statusClass // Use this class for styling
+        cssClass: statusClass
       };
     });
   
@@ -196,14 +230,14 @@ export default function Schedule() {
         <DayPilotMonth
           startDate={`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`}
           events={dayPilotEvents}
-          onEventClick={(args) => {
+          onEventClick={(args: { e: { data: { id: string } } }) => {
             const clickedEvent = events.find((event) => event.id === args.e.data.id);
             if (clickedEvent) {
               console.log(`Navigating to: /events/${clickedEvent.id}`);
               router.push(`/events/${clickedEvent.id}`);
             }  
           }}
-          onBeforeEventRender={(args) => {
+          onBeforeEventRender={(args: any) => {
             const event = args.data.data;
             const statusText = args.data.cssClass === 'event_pending' ? 'Pending' : 'Scheduled';
             
@@ -219,7 +253,6 @@ export default function Schedule() {
           eventHeight={70}
           cellHeight={150}
           headerHeight={30}
-          showWeekend={true}
         />
       </div>
     );

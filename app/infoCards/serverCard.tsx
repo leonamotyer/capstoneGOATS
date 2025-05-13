@@ -1,8 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-export default function ServerCard({ server }) {
+interface Server {
+  id: string | number;
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  wage: number;
+  isAvailable: boolean;
+}
+
+interface ServerCardProps {
+  server: Server;
+}
+
+export default function ServerCard({ server }: ServerCardProps): ReactElement {
   return (
     <div className="server-card border rounded-lg p-4 shadow-md bg-gray-100">
       <h3 className="font-bold text-lg mb-2">

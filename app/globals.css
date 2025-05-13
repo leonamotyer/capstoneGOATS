@@ -696,148 +696,147 @@ button[title="Edit Employee"]:hover {
 
 /* ========== Schedule Page Styles ========== */
 .schedule-container {
-  padding: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  @apply p-6 max-w-7xl mx-auto;
 }
 
 .schedule-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  @apply flex justify-between items-center mb-6;
 }
 
 .schedule-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: var(--primary-dark);
+  @apply text-2xl font-bold text-gray-900;
 }
 
 .schedule-subtitle {
-  color: #4B5563;
+  @apply text-sm text-gray-600;
 }
 
 .view-toggle-container {
-  display: flex;
-  gap: 0.5rem;
+  @apply flex gap-2;
 }
 
 .view-toggle-button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
+  @apply px-4 py-2 text-sm font-medium rounded-md transition-colors;
 }
 
 .view-toggle-button-active {
-  background-color: var(--primary-dark);
-  color: white;
+  @apply bg-blue-600 text-white hover:bg-blue-700;
 }
 
 .view-toggle-button-inactive {
-  background-color: var(--primary-light);
-  color: #E5E7EB;
+  @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
 }
 
 .navigation-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  @apply flex gap-2 mb-6;
 }
 
-/* Navigation Buttons for weekly view on schedule page */
 .navigation-button {
-  padding: 0.5rem 1rem;
-  background-color: var(--primary-dark);
-  color:var(--white);
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
+  @apply px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors;
 }
 
 /* Weekly Schedule Styles */
 .weekly-schedule {
-  display: flex;
-  flex-direction: column;
-  gap: 2.25rem;
-  margin-top: 2.25rem;
+  @apply flex flex-col gap-4 bg-white rounded-lg shadow;
 }
 
-.day-card {
-  border: 2px solid black;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  background-color: white;
+.day-column {
+  @apply border-b border-gray-200 last:border-b-0;
 }
 
-.day-card-has-events {
-  background-color: var(--secondary-dark);
+.day-column-today {
+  @apply bg-blue-50;
 }
 
-.day-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--primary-dark);
-  text-decoration: underline;
-  margin-bottom: 1rem;
+.day-header {
+  @apply p-4 border-b border-gray-200 bg-gray-50;
 }
 
-.day-events-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.day-name {
+  @apply text-sm font-medium text-gray-900;
 }
 
-.empty-week-message {
-  text-align: center;
-  color: var(--primary-dark);
-  margin-top: 2rem;
+.day-date {
+  @apply text-xs text-gray-500;
+}
+
+.day-events {
+  @apply p-2 space-y-2;
 }
 
 /* Monthly Schedule Styles */
 .monthly-schedule {
-  margin-top: 1.5rem;
+  @apply bg-white rounded-lg shadow overflow-hidden;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Custom DayPilot Calendar Styling */
-.month_default_event_bar_inner {
-  background-color: var(--primary-light) !important; /* Green color from your theme */
-  color: var(--secondary-dark);
-  border: 1px solid var(--primary-dark) !important;
+.calendar-header {
+  @apply grid grid-cols-7 border-b border-gray-200 bg-gray-50;
 }
 
-/* Eventually different colors based on event status */
-.event_scheduled .month_default_event_bar_inner {
-  background-color: var(--primary-medium) !important; /* Green for scheduled */
+.calendar-header-cell {
+  @apply py-2 text-center text-sm font-medium text-gray-900;
 }
 
-.event_pending .month_default_event_bar_inner {
-  background-color: var(--secondary-dark) !important; /* Yellow for pending */
+.calendar-grid {
+  @apply grid grid-cols-7;
+  min-height: 600px;
 }
 
-.custom-event {
-  padding: 8px;
-  border-radius: 4px;
+.calendar-cell {
+  @apply border-r border-b border-gray-200 p-1;
+  min-height: 100px;
+  height: 100px;
 }
 
-.custom-event-title {
-  font-weight: bold;
-  font-size: 16px;
-  color: var(--primary-dark);
+.calendar-cell-other-month {
+  @apply bg-gray-50;
 }
 
-.custom-event-time {
-  font-size: 14px;
+.calendar-cell-today {
+  @apply bg-blue-50;
 }
 
-.custom-event-location {
-  font-size: 12px;
-  color: var(--primary-medium);
+.calendar-cell-header {
+  @apply mb-1;
+}
+
+.calendar-cell-date {
+  @apply text-sm font-medium text-gray-900;
+}
+
+.calendar-cell-events {
+  @apply space-y-1 overflow-y-auto;
+  max-height: calc(100% - 1.5rem);
+}
+
+.calendar-event {
+  @apply p-1 text-xs bg-blue-100 text-blue-900 rounded cursor-pointer hover:bg-blue-200 transition-colors mb-1;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.calendar-event-title {
+  @apply font-medium truncate;
+}
+
+.calendar-event-time {
+  @apply text-blue-700 text-[0.65rem];
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .calendar-grid {
+    @apply grid-cols-1;
+  }
+
+  .calendar-cell {
+    @apply border-r-0;
+    height: auto;
+    min-height: 100px;
+  }
 }
 
 /* ========== Event Details Page Styles ========== */
@@ -1017,5 +1016,61 @@ button[title="Edit Employee"]:hover {
   outline: none;
   border-color: var(--primary-medium);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* DayPilot Calendar Styles */
+.monthly-schedule .dp-cal-root {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.monthly-schedule .dp-cal-header {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem;
+}
+
+.monthly-schedule .dp-cal-header-cell {
+  font-weight: 500;
+  color: #374151;
+}
+
+.monthly-schedule .dp-cal-cell {
+  border: 1px solid #e5e7eb;
+  background-color: white;
+}
+
+.monthly-schedule .dp-cal-cell-today {
+  background-color: #f3f4f6;
+}
+
+.monthly-schedule .dp-cal-event {
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.monthly-schedule .dp-cal-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.monthly-schedule .dp-cal-cell-other {
+  background-color: #f9fafb;
+  color: #9ca3af;
+}
+
+.day-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: var(--secondary-dark);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
 }
 

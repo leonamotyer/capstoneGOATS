@@ -1,14 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function Events() {
-  const [events, setEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('All'); // Default filter is "All"
-  const [selectedDate, setSelectedDate] = useState(''); // For date filtering
-  const [maxDistance, setMaxDistance] = useState(''); // For distance filtering
+interface Event {
+  id: string;
+  name: string;
+  date: string;
+  time: string;
+  location: string;
+  distance: number;
+  requiredServers: number;
+  trucks?: string[];
+  assignedStaff?: string[];
+}
+
+export default function Events(): ReactElement {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [activeFilter, setActiveFilter] = useState<string>('All'); // Default filter is "All"
+  const [selectedDate, setSelectedDate] = useState<string>(''); // For date filtering
+  const [maxDistance, setMaxDistance] = useState<string>(''); // For distance filtering
   const router = useRouter();
 
   // Fetch events from events.json
@@ -18,7 +30,7 @@ export default function Events() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => {
+      .then((data: Event[]) => {
         setEvents(data);
         setFilteredEvents(data); // Initially show all events
       })

@@ -1,11 +1,23 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function Employees() {
-  const [employees, setEmployees] = useState([]);
-  const [filteredEmployees, setFilteredEmployees] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('All'); // Default filter is "All"
+interface Employee {
+  id: number;
+  name: string;
+  role: string;
+  address: string;
+  email: string;
+  phone: string;
+  wage: string;
+  isAvailable: boolean;
+  availability: string[];
+}
+
+export default function Employees(): ReactElement {
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
+  const [activeFilter, setActiveFilter] = useState<string>('All');
   const router = useRouter();
 
   // Fetch employees from employee.json
@@ -15,9 +27,9 @@ export default function Employees() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
       })
-      .then((data) => {
+      .then((data: Employee[]) => {
         setEmployees(data);
-        setFilteredEmployees(data); // Initially show all employees
+        setFilteredEmployees(data);
       })
       .catch((error) => console.error('Error fetching employees:', error));
   }, []);
@@ -71,7 +83,7 @@ export default function Employees() {
               {/* Edit Button */}
               <button
                 className="edit-button"
-                onClick={() => router.push(`/employees/${employee.id}`)} 
+                onClick={() => router.push(`/employees/${employee.id}`)}
                 title="Edit Employee"
               >
                 ✏️
