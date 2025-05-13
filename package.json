@@ -1,5 +1,5 @@
 {
-  "name": "cprg306assignment",
+  "name": "CapstoneGoats",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,6 @@
     "@daypilot/daypilot-lite-react": "^3.32.1",
     "@supabase/supabase-js": "^2.49.1",
     "encoding": "^0.1.13",
-    "firebase": "^11.4.0",
     "lucide": "^0.487.0",
     "lucide-react": "^0.487.0",
     "next": "15.1.5",
