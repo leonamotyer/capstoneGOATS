@@ -4,6 +4,11 @@ import { FiCalendar, FiUsers, FiTruck, FiLogOut } from 'react-icons/fi';
 import { GiFoodTruck } from "react-icons/gi";
 import { ReactNode, ReactElement } from 'react';
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import Link from 'next/link';
+import Image from 'next/image';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'YYC Food Trucks',
@@ -17,38 +22,47 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps): ReactElement {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         <AuthProvider>
           <header className="header">
-            <div className="nav-container">
-              {/* Logo and Title */}
-              <a href="/" className="logo hover:opacity-90 transition-opacity">
-                <img
-                  src="/yyctrucks.jpg"
-                  alt="YYC Food Trucks Logo"
+            <nav className="nav-container">
+              <Link href="/" className="logo">
+                <Image
+                  src="/goats-logo.png"
+                  alt="GOATS Logo"
+                  width={64}
+                  height={64}
                   className="logo-img"
                 />
-                <h1 className="logo-text">
-                  <span className="text-secondary-dark">YYC</span> Food Trucks
-                </h1>
-              </a>
-          
-              {/* Navigation Links */}
-              <nav className="nav-links">
-                <a href="/schedule" className="nav-link">
-                  <FiCalendar className="nav-icon" /> Schedule
-                </a>
-                <a href="/employees" className="nav-link">
-                  <FiUsers className="nav-icon" /> Staff
-                </a>
-                <a href="/events" className="nav-link">
-                  <GiFoodTruck className="nav-icon" /> Events
-                </a>
-                <a href="/login" className="nav-link">
-                  <FiLogOut className="nav-icon" /> Login
-                </a>
-              </nav>
-            </div>
+                <span className="logo-text">GOATS</span>
+              </Link>
+              <div className="nav-links">
+                <Link href="/employees/" className="nav-link">
+                  <span className="nav-icon">👥</span>
+                  Employees
+                </Link>
+                <Link href="/events/" className="nav-link">
+                  <span className="nav-icon">📅</span>
+                  Events
+                </Link>
+                <Link href="/schedule/" className="nav-link">
+                  <span className="nav-icon">📊</span>
+                  Schedule
+                </Link>
+                <Link href="/employees/newEmployee/" className="nav-link">
+                  <span className="nav-icon">➕</span>
+                  New Employee
+                </Link>
+                <Link href="/events/newEvent/" className="nav-link">
+                  <span className="nav-icon">➕</span>
+                  New Event
+                </Link>
+                <Link href="/" className="nav-link">
+                  <span className="nav-icon">🏠</span>
+                  Home
+                </Link>
+              </div>
+            </nav>
           </header>
 
           <main className="container dashboard-grid">
